@@ -2,20 +2,11 @@
 #include "Define.hpp"
 using namespace DX9;
 
-DirectX::DirectX()
-{
-
-}
-
-DirectX::~DirectX()
-{
-
-}
-
 bool DirectX::Init(System& win)
 {
 	if (direct3d.Create(win))
 	{
+		font.Create(direct3d.p_d3dDevice);
 		return true;
 	}
 	return false;
@@ -35,6 +26,8 @@ void DirectX::Draw()
 			1.0f,
 			0
 		);
+
+		font.Draw(GetColor(255,255,255),0,0,"AAAAAA\nBBBBBB");
 		//•`‰æI—¹
 		direct3d.p_d3dDevice->EndScene();
 	}
