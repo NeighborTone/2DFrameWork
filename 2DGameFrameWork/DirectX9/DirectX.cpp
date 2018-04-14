@@ -7,11 +7,20 @@ bool DirectX::Init(System& win)
 	if (direct3d.Create(win))
 	{
 		font.Create(direct3d.p_d3dDevice);
+		tex.Create(direct3d.p_d3dDevice,"bg_title.png");
+		sprite.pos = { 480,270 };
+
+
+
 		return true;
 	}
 	return false;
 }
 
+void DirectX::Update()
+{
+	
+}
 void DirectX::Draw()
 {
 	//•`‰æŠJŽn
@@ -26,7 +35,7 @@ void DirectX::Draw()
 			1.0f,
 			0
 		);
-
+		sprite.Draw(direct3d.p_d3dDevice, tex);
 		font.Draw(GetColor(255,255,255),0,0,"AAAAAA\nBBBBBB");
 		//•`‰æI—¹
 		direct3d.p_d3dDevice->EndScene();

@@ -34,10 +34,11 @@ void Mainloop::Run()
 		}
 		else
 		{
+			directx.Update();
 			directx.Draw();
 		}
 
-		ShowCursor(false);	//マウス非表示
+	//	ShowCursor(false);	//マウス非表示
 	
 	}
 }

@@ -95,5 +95,7 @@ bool Direct3D::Create(System& win)
 	p_d3dDevice->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	p_d3dDevice->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
+	
+	
 	return true;
 }

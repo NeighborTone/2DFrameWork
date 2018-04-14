@@ -1,5 +1,5 @@
 #pragma once
-#include "DirectX.h"
+#include <d3dx9.h>
 #include <string>
 namespace DX9
 {
@@ -11,8 +11,17 @@ namespace DX9
 	public:
 		Texture();
 		~Texture();
-		bool Create(LPDIRECT3DDEVICE9 device,const std::string path);
-	
+		bool Create(IDirect3DDevice9* device,const std::string path);
+
+		LPDIRECT3DTEXTURE9 Gettexture()
+		{
+			return p_tex;
+		}
+		//“Ç‚İ‚ñ‚¾‰æ‘œî•ñ‚ğ•Ô‚·
+		D3DXIMAGE_INFO GetInfo() const	
+		{
+			return info;
+		}
 	};
 	
 }

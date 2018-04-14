@@ -39,6 +39,9 @@
     <ClCompile Include="DirectX9\DX9_Font.cpp">
       <Filter>DirectX</Filter>
     </ClCompile>
+    <ClCompile Include="DirectX9\DX9_Sprire.cpp">
+      <Filter>DirectX</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mainloop.h">
@@ -60,6 +63,9 @@
       <Filter>DirectX</Filter>
     </ClInclude>
     <ClInclude Include="DirectX9\DX9_Font.h">
+      <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectX9\DX9_Sprire.h">
       <Filter>DirectX</Filter>
     </ClInclude>
   </ItemGroup>
