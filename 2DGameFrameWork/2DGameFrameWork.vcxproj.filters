@@ -51,6 +51,9 @@
     <ClCompile Include="MyClass.cpp">
       <Filter>DirectX</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mainloop.h">
@@ -79,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="DirectX9\MyClass.h">
       <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

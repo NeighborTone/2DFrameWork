@@ -5,7 +5,7 @@
 #include <d3dx9.h>
 //’u‚«êŠ‚É¢‚éˆ—‚ÌW‚¢
 namespace MyClass {
-
+	typedef D3DXVECTOR2 Vec2;
 	class Box
 	{
 	public:

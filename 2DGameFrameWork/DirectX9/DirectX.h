@@ -4,6 +4,7 @@
 #include "DX9_Font.h"
 #include "DX9_Sprire.h"
 #include "../System.h"
+#include "../Image.h"
 namespace DX9
 {
 	class DirectX
@@ -11,12 +12,19 @@ namespace DX9
 	public: 
 		Direct3D direct3d;
 		DX9::Font font;
-		struct Cursor
+		struct Obj
+		{
+			Image image;
+			MyClass::Vec2 vec2;
+			MyClass::Box src;
+			MyClass::Box draw;
+		}rota[16];
+	/*	struct Cursor
 		{
 			DX9::Texture tex;
 			DX9::Sprite sprite;
 			D3DXVECTOR2  pos;
-		}cursor,back,hoge;
+		}cursor,back,hoge;*/
 
 		DirectX() {};
 		~DirectX() {};

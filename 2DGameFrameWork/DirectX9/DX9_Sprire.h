@@ -31,7 +31,7 @@ namespace DX9
 		//1,テクスチャ 2,座標
 		void SimpleDraw(LPDIRECT3DTEXTURE9 tex, float x, float y);
 		void SimpleDraw(LPDIRECT3DTEXTURE9 tex, D3DXVECTOR2 pos);
-
 		void Draw(const D3DXVECTOR2& pos,const RECT& draw_, const RECT& src_, const LPDIRECT3DTEXTURE9& texture_, const float degree_, const D3DXVECTOR2& center_, const D3DCOLOR& color_ = 0xffffffff)const;
+		void Draw(const float& x, const float& y, const RECT& draw_, const RECT& src_, const LPDIRECT3DTEXTURE9& texture_, const float degree_, const D3DXVECTOR2& center_, const D3DCOLOR& color_ = 0xffffffff)const;
 	};
 }

@@ -18,6 +18,7 @@ namespace DX9
 		~Direct3D();
 		//デバイス生成
 		bool Create(System& win);
+		IDirect3DDevice9* Get() { return p_d3dDevice; }
 	};
 
 	

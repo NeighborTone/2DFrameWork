@@ -8,18 +8,14 @@ class Image
 private:
 	DX9::Sprite sprite;
 	DX9::Texture tex;
-	MyClass::Box box;
-	
-
 public:
-
+	//(íÜêSì_(x,y)ï`âÊîÕàÕ(w,h))
 	Image();
 	~Image();
-	RECT GetSrc();
-	RECT GetDraw();
-	
-	void Load(const char* path);
-	void Draw(float x, float y ,RECT src,RECT draw);
-	void DrawRota(float x, float y, RECT src, RECT draw);
+	void Load(IDirect3DDevice9* p_d3dDevice,const char* path);
+	void Draw(float x, float y);
+	void Draw(D3DXVECTOR2 pos);
+	void Draw(float x, float y, MyClass::Box src, MyClass::Box draw);
+	void DrawRota(D3DXVECTOR2 pos, float degree,MyClass::Box src, MyClass::Box draw);
 };
 
