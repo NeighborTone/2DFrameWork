@@ -1,6 +1,7 @@
 #include "DirectX.h"
-#include "Define.hpp"
+#include "MyClass.h"
 using namespace DX9;
+using namespace MyClass;
 
 bool DirectX::Init(System& win)
 {
@@ -8,21 +9,27 @@ bool DirectX::Init(System& win)
 	{
 		font.Create(direct3d.p_d3dDevice);
 
+		back.sprite.Create(direct3d.p_d3dDevice);
 		back.tex.Create(direct3d.p_d3dDevice,"bg_title.png");
-		back.pos = { 480,270 };
+		back.pos = { 0,0 };
 
 		cursor.sprite.Create(direct3d.p_d3dDevice);
 		cursor.tex.Create(direct3d.p_d3dDevice, "カーソル.png");
-		cursor.pos = { 100,100 };
+		cursor.pos = { 0,50 };
 
+		hoge.sprite.Create(direct3d.p_d3dDevice);
+		hoge.tex.Create(direct3d.p_d3dDevice, "カーソル.png");
+		hoge.pos = { 200,200 };
 		return true;
 	}
 	return false;
 }
-
+float r;
 void DirectX::Update()
 {
-	
+	++r;
+	++cursor.pos.x;
+	++cursor.pos.y;
 }
 void DirectX::Draw()
 {
@@ -39,9 +46,21 @@ void DirectX::Draw()
 			0
 		);
 		
-		back.sprite.DrawRota(direct3d.p_d3dDevice, back.tex, back.pos.x, back.pos.y,Radian(0));
-		cursor.sprite.SimpleDraw(cursor.tex.Gettexture(),cursor.pos);
-		font.Draw(GetColor(0,0,0),0,0,"%f",cursor.pos.x);
+		
+		{
+			Box src = { 0, 0, 960, 540 };
+			Box draw (480,270,960,540);
+			back.sprite.Draw(back.pos,draw.ToRECT(), src.ToRECT(), back.tex.Gettexture(), 0, D3DXVECTOR2(draw.x, draw.y));
+		}
+		{
+			Box src = { 0, 0, 80, 80 };
+			Box draw( 40,40,80,80);	//(中心点(x,y)描画範囲(w,h))
+			cursor.sprite.Draw(cursor.pos,draw.ToRECT(), src.ToRECT(), cursor.tex.Gettexture(), r, draw.OffSet(cursor.pos.x, cursor.pos.y));
+			font.Draw(GetColor(0, 0, 0), 0, 900, "%f\n%f", cursor.pos.x,draw.x);
+		}
+	
+		hoge.sprite.SimpleDraw(hoge.tex.Gettexture(), hoge.pos);
+		
 		//描画終了
 		direct3d.p_d3dDevice->EndScene();
 	}

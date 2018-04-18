@@ -4,101 +4,74 @@ using namespace DX9;
 
 Sprite::Sprite()
 {
-	p_sprite = nullptr;
+	pSprite = nullptr;
 	width = 0;
 	height = 0;
 }
 Sprite::~Sprite()
 {
-	if (p_sprite != nullptr)
+	if (pSprite != nullptr)
 	{
-		p_sprite->Release();
+		pSprite->Release();
 	}
 }
 bool Sprite::Create(LPDIRECT3DDEVICE9 device)
 {
-	if (FAILED(D3DXCreateSprite(device, &p_sprite)))
+	if (FAILED(D3DXCreateSprite(device, &pSprite)))
 	{
 		MessageBox(NULL, "スプライトの生成に失敗しました", "Error", MB_OK);
 		return false;
 	}
 	return true;
 }
-void Sprite::DrawRota(IDirect3DDevice9* pDevice3D, DX9::Texture pTexture, float x, float y, float radian)
-{
-	//頂点情報セット（板ポリゴン生成用なので頂点4つ）
-	Vertex vtx[4] =
-	{
-		//x					   y					    z      rhw   u      v
-		{ static_cast<float>(pTexture.GetInfo().Width / 2), -static_cast<float>(pTexture.GetInfo().Height / 2), 0.0f, 1.0f, 1.0f, 0.0f },
-		{ static_cast<float>(pTexture.GetInfo().Width / 2),  static_cast<float>(pTexture.GetInfo().Height / 2), 0.0f, 1.0f, 1.0f, 1.0f },
-		{ -static_cast<float>(pTexture.GetInfo().Width / 2),-static_cast<float>(pTexture.GetInfo().Height / 2), 0.0f, 1.0f, 0.0f, 0.0f },
-		{ -static_cast<float>(pTexture.GetInfo().Width / 2), static_cast<float>(pTexture.GetInfo().Height / 2), 0.0f, 1.0f, 0.0f, 1.0f },
-	};
-	for (int i = 0; i < 4; ++i)
-	{
-		float rx = vtx[i].x * cosf(radian) - vtx[i].y * sinf(radian);
-		float ry = vtx[i].x * sinf(radian) + vtx[i].y * cosf(radian);
-		vtx[i].x = rx + x;
-		vtx[i].y = ry + y;
-	}
-	//テクスチャセット
-	pDevice3D->SetTexture(0, pTexture.Gettexture());
-	//頂点情報セット
-	pDevice3D->SetFVF(SPRITE_FVF);
-	//板ポリゴンを生成しテクスチャーを貼り付けてスプライト描画
-	pDevice3D->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, vtx, sizeof(Vertex));
-}
-void Sprite::DrawRota(IDirect3DDevice9* pDevice3D, Texture pTexture, D3DXVECTOR2 pos,float radian)
-{
-	//頂点情報セット（板ポリゴン生成用なので頂点4つ）
-	Vertex vtx[4] =
-	{
-		//x					   y					    z      rhw   u      v
-		{  static_cast<float>(pTexture.GetInfo().Width / 2), -static_cast<float>(pTexture.GetInfo().Height / 2), 0.0f, 1.0f, 1.0f, 0.0f },
-		{  static_cast<float>(pTexture.GetInfo().Width / 2),  static_cast<float>(pTexture.GetInfo().Height / 2), 0.0f, 1.0f, 1.0f, 1.0f },
-		{  -static_cast<float>(pTexture.GetInfo().Width / 2),-static_cast<float>(pTexture.GetInfo().Height / 2), 0.0f, 1.0f, 0.0f, 0.0f },
-		{  -static_cast<float>(pTexture.GetInfo().Width / 2), static_cast<float>(pTexture.GetInfo().Height / 2), 0.0f, 1.0f, 0.0f, 1.0f },
-	};
-	for (int i = 0; i < 4; ++i)
-	{
-		float x = vtx[i].x * cosf(radian) - vtx[i].y * sinf(radian);
-		float y = vtx[i].x * sinf(radian) + vtx[i].y * cosf(radian);
-		vtx[i].x = x + pos.x;
-		vtx[i].y = y + pos.y;
-	}
-	//テクスチャセット
-	pDevice3D->SetTexture(0, pTexture.Gettexture());
-	//頂点情報セット
-	pDevice3D->SetFVF(SPRITE_FVF);
-	//板ポリゴンを生成しテクスチャーを貼り付けてスプライト描画
-	pDevice3D->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, vtx, sizeof(Vertex));
-}
 void Sprite::SimpleDraw(LPDIRECT3DTEXTURE9 tex, float x, float y)
 {
 	D3DXVECTOR3 center(0, 0, 0);
 	D3DXVECTOR3 pos3(x, y, 0);
-	p_sprite->Begin(D3DXSPRITE_ALPHABLEND);	//(alphaブレンドのフラグ)
-	p_sprite->Draw(
+	pSprite->Begin(D3DXSPRITE_ALPHABLEND);	//(alphaブレンドのフラグ)
+	pSprite->Draw(
 		tex,
 		NULL,
-		&center,   //中心点
-		&pos3,		  //座標
+		NULL,   //中心点
+		&pos3, //座標
 		0xFFFFFFFF
 	);
-	p_sprite->End();
+	pSprite->End();
 }
 void Sprite::SimpleDraw(LPDIRECT3DTEXTURE9 tex,D3DXVECTOR2 pos)
 {
-	D3DXVECTOR3 center(0,0,0);
+	
 	D3DXVECTOR3 pos3(pos.x, pos.y, 0);
-	p_sprite->Begin(D3DXSPRITE_ALPHABLEND);	//(alphaブレンドのフラグ)
-	p_sprite->Draw(
+	pSprite->Begin(D3DXSPRITE_ALPHABLEND);	//(alphaブレンドのフラグ)
+	pSprite->Draw(
 		tex,
 		NULL,
-		&center,   //中心点
-		&pos3,		  //座標
+		NULL,   //中心点
+		&pos3, //座標
 		0xFFFFFFFF
 	);
-	p_sprite->End();
+	pSprite->End();
+}
+
+void Sprite::Draw(const D3DXVECTOR2& pos, const RECT& draw, const RECT& src, const LPDIRECT3DTEXTURE9& texture_, const float degree, const D3DXVECTOR2& center_, const D3DCOLOR& color) const
+{
+	this->pSprite->Begin(D3DXSPRITE_ALPHABLEND);
+	//----------------------------------
+	float  xs = (static_cast<float>(draw.right - draw.left)) / (static_cast<float>(src.right - src.left));
+	float  ys = (static_cast<float>(draw.bottom - draw.top)) / (static_cast<float>(src.bottom - src.top));
+	RECT rect = src;
+	D3DXVECTOR3 pos3(static_cast<float>(draw.left), static_cast<float>(draw.top), 0.0f);
+	D3DXVECTOR3  scale(xs, ys, 1.0f);
+	D3DXVECTOR3  center(static_cast<float>(draw.left), static_cast<float>(draw.top), 0);
+	D3DXVECTOR3 pos2(pos.x, pos.y, 0);
+	D3DXMATRIX matS;
+	D3DXMatrixScaling(&matS, scale.x, scale.y, scale.z);
+	D3DXMATRIX matR;
+	D3DXMatrixRotationZ(&matR, D3DXToRadian(degree));
+	D3DXMATRIX matT;
+	D3DXMatrixTranslation(&matT, pos3.x, pos3.y, pos3.z);
+	D3DXMATRIX mat = matS * matR * matT;
+	this->pSprite->SetTransform(&mat);
+	this->pSprite->Draw(texture_, &rect, &center, &pos2, color);
+	this->pSprite->End();
 }

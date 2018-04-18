@@ -148,17 +148,20 @@
     <ClCompile Include="DirectX9\DX9_Font.cpp" />
     <ClCompile Include="DirectX9\DX9_Sprire.cpp" />
     <ClCompile Include="DirectX9\DX9_Texture.cpp" />
+    <ClCompile Include="Image.cpp" />
     <ClCompile Include="Mainloop.cpp" />
+    <ClCompile Include="MyClass.cpp" />
     <ClCompile Include="System.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DirectX9\Define.hpp" />
+    <ClInclude Include="DirectX9\MyClass.h" />
     <ClInclude Include="DirectX9\DirectX.h" />
     <ClInclude Include="DirectX9\DX9_Device.h" />
     <ClInclude Include="DirectX9\DX9_Font.h" />
     <ClInclude Include="DirectX9\DX9_Sprire.h" />
     <ClInclude Include="DirectX9\DX9_Texture.h" />
+    <ClInclude Include="Image.h" />
     <ClInclude Include="Mainloop.h" />
     <ClInclude Include="System.h" />
   </ItemGroup>
