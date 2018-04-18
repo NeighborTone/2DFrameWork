@@ -10,11 +10,12 @@ bool Mainloop::Init(HINSTANCE hInstance, int nCmdShow)
 	const bool isDirectX = directx.Init(window);
 	//ウィンドウ描画
 	const bool isshow = ShowWindow(window.GetWindow(), nCmdShow);
-	if (!iswin  || isDirectX || isshow)
+	if (iswin  && isDirectX && isshow)
 	{
-		return false;
+		
+		return true;
 	}
-	return true;
+	return false;
 }
 
 

@@ -25,6 +25,7 @@ float r;
 void DirectX::Update()
 {
 	r += 6;
+	
 }
 
 void DirectX::Draw()
@@ -49,7 +50,7 @@ void DirectX::Draw()
 			rota[i].image.DrawRota(rota[i].vec2, r, rota[i].src, rota[i].draw);
 		}
 		
-		//	font.Draw(GetColor(0, 0, 0), 0, 900, "%f\n%f", cursor.pos.x,draw.x);
+			font.Draw(GetColor(0, 0, 0), 0, 900, "(^q^)");
 
 		//•`‰æI—¹
 		direct3d.p_d3dDevice->EndScene();

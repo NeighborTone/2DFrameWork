@@ -9,7 +9,7 @@ namespace DX9
 	{
 	private:
 		ID3DXFont* pFont;
-		RECT          rect;						//•`‰æ—Ìˆæ
+		RECT          rect;				//•`‰æ—Ìˆæ
 		std::vector<char> buf;		//•¶Žšƒoƒbƒtƒ@
 	public:
 		Font();

@@ -3,7 +3,7 @@
 #include "DX9_Texture.h"
 namespace DX9
 {
-	//このクラスはプリミティブの作成も内部で行う
+
 	class Sprite
 	{
 	private:

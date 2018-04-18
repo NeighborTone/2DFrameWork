@@ -31,6 +31,16 @@ void Image::Draw(float x, float y, MyClass::Box src, MyClass::Box draw)
 	sprite.Draw(x, y, draw.ToRECT(), src.ToRECT(), tex.Gettexture(), 0, D3DXVECTOR2(0, 0));
 }
 
+void Image::Draw(D3DXVECTOR2 pos, MyClass::Box src, MyClass::Box draw)
+{
+	sprite.Draw(pos, draw.ToRECT(), src.ToRECT(), tex.Gettexture(), 0, D3DXVECTOR2(0, 0));
+}
+
+void Image::DrawRota(float x, float y, float degree, MyClass::Box src, MyClass::Box draw)
+{
+	sprite.Draw(x, y, draw.ToRECT(), src.ToRECT(), tex.Gettexture(), degree, D3DXVECTOR2(draw.OffSet(x,y)));
+}
+
 void Image::DrawRota(D3DXVECTOR2 pos, float degree ,MyClass::Box src, MyClass::Box draw)
 {
 	sprite.Draw(pos, draw.ToRECT(), src.ToRECT(), tex.Gettexture(), degree, D3DXVECTOR2(draw.OffSet(pos)));

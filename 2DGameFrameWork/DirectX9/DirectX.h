@@ -9,8 +9,10 @@ namespace DX9
 {
 	class DirectX
 	{
-	public: 
+	private:
 		Direct3D direct3d;
+	public: 
+		
 		DX9::Font font;
 		struct Obj
 		{
@@ -19,12 +21,6 @@ namespace DX9
 			MyClass::Box src;
 			MyClass::Box draw;
 		}rota[16];
-	/*	struct Cursor
-		{
-			DX9::Texture tex;
-			DX9::Sprite sprite;
-			D3DXVECTOR2  pos;
-		}cursor,back,hoge;*/
 
 		DirectX() {};
 		~DirectX() {};

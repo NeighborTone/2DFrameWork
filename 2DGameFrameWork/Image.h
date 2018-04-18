@@ -16,6 +16,8 @@ public:
 	void Draw(float x, float y);
 	void Draw(D3DXVECTOR2 pos);
 	void Draw(float x, float y, MyClass::Box src, MyClass::Box draw);
+	void Draw(D3DXVECTOR2 pos, MyClass::Box src, MyClass::Box draw);
+	void DrawRota(float x, float y, float degree, MyClass::Box src, MyClass::Box draw);
 	void DrawRota(D3DXVECTOR2 pos, float degree,MyClass::Box src, MyClass::Box draw);
 };
 

@@ -4,7 +4,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdPa
 {
 
 	Mainloop main;
-	if (!main.Init(hInstance, nCmdShow))
+	if (main.Init(hInstance, nCmdShow))
 	{
 		main.Run();
 	}
