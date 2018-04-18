@@ -7,10 +7,13 @@ bool DirectX::Init(System& win)
 	if (direct3d.Create(win))
 	{
 		font.Create(direct3d.p_d3dDevice);
-		tex.Create(direct3d.p_d3dDevice,"bg_title.png");
-		sprite.pos = { 480,270 };
 
+		back.tex.Create(direct3d.p_d3dDevice,"bg_title.png");
+		back.pos = { 480,270 };
 
+		cursor.sprite.Create(direct3d.p_d3dDevice);
+		cursor.tex.Create(direct3d.p_d3dDevice, "カーソル.png");
+		cursor.pos = { 100,100 };
 
 		return true;
 	}
@@ -35,8 +38,10 @@ void DirectX::Draw()
 			1.0f,
 			0
 		);
-		sprite.Draw(direct3d.p_d3dDevice, tex);
-		font.Draw(GetColor(255,255,255),0,0,"AAAAAA\nBBBBBB");
+		
+		back.sprite.DrawRota(direct3d.p_d3dDevice, back.tex, back.pos.x, back.pos.y,Radian(0));
+		cursor.sprite.SimpleDraw(cursor.tex.Gettexture(),cursor.pos);
+		font.Draw(GetColor(0,0,0),0,0,"%f",cursor.pos.x);
 		//描画終了
 		direct3d.p_d3dDevice->EndScene();
 	}

@@ -11,8 +11,19 @@ namespace DX9
 	public: 
 		DX9::Direct3D direct3d;
 		DX9::Font font;
-		DX9::Texture tex;
-		DX9::Sprite sprite;
+		struct Cursor
+		{
+			DX9::Texture tex;
+			DX9::Sprite sprite;
+			D3DXVECTOR2  pos;
+		}cursor;
+		struct Back
+		{
+			DX9::Texture tex;
+			DX9::Sprite sprite;
+			D3DXVECTOR2  pos;
+		}back;
+
 		DirectX() {};
 		~DirectX() {};
 		bool Init(System& win);
