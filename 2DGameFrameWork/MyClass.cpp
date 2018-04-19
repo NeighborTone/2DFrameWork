@@ -43,7 +43,7 @@ D3DXVECTOR2 Box::OffSet(float& x, float& y)
 }
 RECT Box::ToRECT()
 {
-	RECT rect = { x , y , w + x, h + y };//‚±‚ê‚ğ‚µ‚È‚¢‚Æ‰æ‘œ‚ªk‚Ş
+	RECT rect = { x , y , w + x, h + y };	//‹éŒ`‚Í‚±‚ê‚Å‚Å‚«‚é
 	return rect;
 }
 

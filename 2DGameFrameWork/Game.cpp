@@ -1,17 +1,30 @@
-//#include "Game.h"
-//void Game::GInit(IDirect3DDevice9* p_d3dDevice)
-//{
-//	image.Load(p_d3dDevice,"カーソル.png");
-//}
-//void Game::GRun()
-//{
-//
-//}
-//void Game::GDraw()
-//{
-//	image.Draw();
-//}
-//void Game::GFin()
-//{
-//
-//}
+#include "Game.h"
+void Game::Init(IDirect3DDevice9* p_d3dDevice)
+{
+	for (int i = 0; i < 16; ++i)
+	{
+		rota[i].image.Load(p_d3dDevice, "カーソル.png");
+		rota[i].vec2 = { 0 + (float)i * 80, 200 };
+		rota[i].r = 0;
+	}
+}
+void Game::Run()
+{
+	for (int i = 0; i < 16; ++i)
+	{
+		rota[i].r -= 1;
+	}
+}
+void Game::Draw()
+{
+	for (int i = 0; i < 16; ++i)
+	{
+		rota[i].src = { 0,0,80,80 };
+		rota[i].draw = { 40,40,80,80 };
+		rota[i].image.DrawRota(rota[i].vec2, rota[i].r, rota[i].src, rota[i].draw);
+	}
+}
+void Game::Fin()
+{
+
+}

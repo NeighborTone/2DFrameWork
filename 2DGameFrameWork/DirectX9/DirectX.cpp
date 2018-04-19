@@ -9,23 +9,16 @@ bool DirectX::Init(System& win)
 	if (direct3d.Create(win))
 	{
 		font.Create(direct3d.p_d3dDevice);
-
-		for (int i = 0; i < 16; ++i)
-		{
-			rota[i].image.Load(direct3d.p_d3dDevice, "カーソル.png");
-			rota[i].vec2 = { 0 + (float)i * 80, 80 };
-
-		}
 	
+		game.Init(direct3d.p_d3dDevice);
 		return true;
 	}
 	return false;
 }
-float r;
+
 void DirectX::Update()
 {
-	r += 6;
-	
+	game.Run();
 }
 
 void DirectX::Draw()
@@ -43,14 +36,9 @@ void DirectX::Draw()
 			0
 		);
 
-		for (int i = 0; i < 16; ++i)
-		{
-			rota[i].src = { 0,0,80,80 };
-			rota[i].draw = { 40,40,80,80 };
-			rota[i].image.DrawRota(rota[i].vec2, r, rota[i].src, rota[i].draw);
-		}
+		game.Draw();
 		
-			font.Draw(GetColor(0, 0, 0), 0, 900, "(^q^)");
+		font.Draw(GetColor(0, 0, 0), 0, 900, "(^q^)");
 
 		//描画終了
 		direct3d.p_d3dDevice->EndScene();

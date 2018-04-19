@@ -5,6 +5,7 @@
 #include "DX9_Sprire.h"
 #include "../System.h"
 #include "../Image.h"
+#include "../Game.h"
 namespace DX9
 {
 	class DirectX
@@ -12,16 +13,9 @@ namespace DX9
 	private:
 		Direct3D direct3d;
 	public: 
-		
+		Game game;
 		DX9::Font font;
-		struct Obj
-		{
-			Image image;
-			MyClass::Vec2 vec2;
-			MyClass::Box src;
-			MyClass::Box draw;
-		}rota[16];
-
+	
 		DirectX() {};
 		~DirectX() {};
 		bool Init(System& win);
