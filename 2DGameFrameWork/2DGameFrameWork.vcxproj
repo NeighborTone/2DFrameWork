@@ -151,6 +151,7 @@
     <ClCompile Include="DirectX9\DX9_Texture.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Image.cpp" />
+    <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Mainloop.cpp" />
     <ClCompile Include="MyClass.cpp" />
     <ClCompile Include="System.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="DirectX9\DX9_Texture.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Mainloop.h" />
     <ClInclude Include="MyClass.h" />
     <ClInclude Include="System.h" />

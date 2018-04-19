@@ -16,5 +16,6 @@ public:
 	bool Create(std::string str , HINSTANCE& hInstance, int& nCmdShow);		//ウィンドウ生成
 	UINT Width() { return SCREEN_W; }
 	UINT Height() { return SCREEN_H; }
+	HINSTANCE ins;
 	HWND GetWindow();
 };

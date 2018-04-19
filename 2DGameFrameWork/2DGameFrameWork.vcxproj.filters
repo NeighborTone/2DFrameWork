@@ -27,6 +27,9 @@
     <Filter Include="Main\Loop">
       <UniqueIdentifier>{ce672879-aa9c-4b38-8e35-706f2303a3d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Main\Input">
+      <UniqueIdentifier>{bd650ae0-bae6-4d85-9e11-e4eece103fd2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -65,6 +68,9 @@
     <ClCompile Include="DirectX9\DX9_Input.cpp">
       <Filter>DirectX</Filter>
     </ClCompile>
+    <ClCompile Include="Keyboard.cpp">
+      <Filter>Main\Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectX9\DirectX.h">
@@ -99,6 +105,9 @@
     </ClInclude>
     <ClInclude Include="DirectX9\DX9_Input.h">
       <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Keyboard.h">
+      <Filter>Main\Input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

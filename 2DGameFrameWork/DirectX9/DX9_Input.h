@@ -1,5 +1,7 @@
 #pragma once
 #define DIRECTINPUT_VERSION 0x0800
+#pragma comment(lib,"dinput8.lib")
+#pragma comment(lib,"dxguid.lib")
 #include <dinput.h>
 
 namespace DX9
@@ -9,12 +11,13 @@ namespace DX9
 	{
 	private:
 		LPDIRECTINPUT8 pDI;
-		LPDIRECTINPUTDEVICE pKey;
+		LPDIRECTINPUTDEVICE8 pKey;
 		unsigned char buf[256];
 		unsigned char prebuf[256];
-		static const int MAX_KEY = 28;
+		static const int MAX_KEY = 61;
 		int dikCode[MAX_KEY];
 	public:
+	
 		Input();
 		~Input();
 		bool CreateInput(const HWND& hwnd);
@@ -32,4 +35,5 @@ namespace DX9
 			return pDI;
 		}
 	};
+	extern Input in;	//èâä˙âªéûÇ…ê∂ê¨Ç∑ÇÈ
 }

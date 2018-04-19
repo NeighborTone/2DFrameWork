@@ -3,6 +3,7 @@
 #include "DX9_Texture.h"
 #include "DX9_Font.h"
 #include "DX9_Sprire.h"
+#include "DX9_Input.h"
 #include "../System.h"
 #include "../Image.h"
 #include "../Game.h"

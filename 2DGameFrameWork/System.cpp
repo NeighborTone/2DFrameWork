@@ -56,7 +56,7 @@ bool System::Create(std::string str ,HINSTANCE& hInstance, int& nCmdShow)
 	wcex.hCursor = LoadCursor(NULL, IDC_ARROW);			//事前定義されている矢印カーソル
 	wcex.hIcon = NULL;												//アイコン
 	wcex.hIconSm = NULL;												//小さいアイコン
-
+	ins = hInstance;
 	if (!RegisterClassEx(&wcex)) 
 	{
 		MessageBox(NULL, "ウィンドウの登録に失敗しました", "Error", MB_OK); 

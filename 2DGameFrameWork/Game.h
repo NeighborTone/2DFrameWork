@@ -1,20 +1,26 @@
 #pragma once
 #include "Image.h"
-class Game
+#include "Keyboard.h"
+namespace DX9
 {
-public:
-	struct Rota
+	class Game
 	{
-		Image image;
-		MyClass::Vec2 vec2;
-		MyClass::Box src;
-		MyClass::Box draw;
-		float r;
-	}rota[16];
-	
-	void Init();
-	void Run();
-	void Draw();
-	void Fin();
+	public:
+		struct Rota
+		{
+			Image image;
+			MyClass::Vec2 vec2;
+			MyClass::Box src;
+			MyClass::Box draw;
+			float r;
+		}rota[16], me;
 
-};
+		KeyBoard key;
+		void Init();
+		void Run();
+		void Draw();
+		void Fin();
+
+	};
+
+}
