@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="ソース ファイル">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="ヘッダー ファイル">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="リソース ファイル">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -16,19 +8,29 @@
     <Filter Include="DirectX">
       <UniqueIdentifier>{0fb766f5-6a0e-45d5-883b-efc3ea0ccdcf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Image">
+    <Filter Include="Main">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Main\Image">
       <UniqueIdentifier>{6a6f37d6-34fb-413c-805f-7f82000f5c86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\Game">
+      <UniqueIdentifier>{ced59224-d380-4577-950d-d695dcdd0035}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\MyClass">
+      <UniqueIdentifier>{a2a90196-53f9-46ab-b764-ebec3890d395}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\System">
+      <UniqueIdentifier>{b7292c72-0755-4576-bae5-5050bc60b8fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\Loop">
+      <UniqueIdentifier>{ce672879-aa9c-4b38-8e35-706f2303a3d9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Mainloop.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="System.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="WinMain.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>Main</Filter>
     </ClCompile>
     <ClCompile Include="DirectX9\DirectX.cpp">
       <Filter>DirectX</Filter>
@@ -46,22 +48,25 @@
       <Filter>DirectX</Filter>
     </ClCompile>
     <ClCompile Include="Image.cpp">
-      <Filter>ソース ファイル\Image</Filter>
-    </ClCompile>
-    <ClCompile Include="MyClass.cpp">
-      <Filter>DirectX</Filter>
+      <Filter>Main\Image</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>Main\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="MyClass.cpp">
+      <Filter>Main\MyClass</Filter>
+    </ClCompile>
+    <ClCompile Include="System.cpp">
+      <Filter>Main\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Mainloop.cpp">
+      <Filter>Main\Loop</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectX9\DX9_Input.cpp">
+      <Filter>DirectX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Mainloop.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="System.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="DirectX9\DirectX.h">
       <Filter>DirectX</Filter>
     </ClInclude>
@@ -78,13 +83,22 @@
       <Filter>DirectX</Filter>
     </ClInclude>
     <ClInclude Include="Image.h">
-      <Filter>ソース ファイル\Image</Filter>
-    </ClInclude>
-    <ClInclude Include="DirectX9\MyClass.h">
-      <Filter>DirectX</Filter>
+      <Filter>Main\Image</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
-      <Filter>ソース ファイル</Filter>
+      <Filter>Main\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="System.h">
+      <Filter>Main\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Mainloop.h">
+      <Filter>Main\Loop</Filter>
+    </ClInclude>
+    <ClInclude Include="MyClass.h">
+      <Filter>Main\MyClass</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectX9\DX9_Input.h">
+      <Filter>DirectX</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

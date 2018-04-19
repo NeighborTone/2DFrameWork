@@ -11,7 +11,7 @@ namespace DX9
 	class DirectX
 	{
 	private:
-		Direct3D direct3d;
+		
 	public: 
 		Game game;
 		DX9::Font font;
@@ -22,4 +22,5 @@ namespace DX9
 		void Update();
 		void Draw();
 	};
+	
 }

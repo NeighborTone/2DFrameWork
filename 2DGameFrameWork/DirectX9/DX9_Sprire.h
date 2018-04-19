@@ -1,5 +1,6 @@
 #pragma once
 #include <d3dx9.h>
+#include "DX9_Device.h"
 #include "DX9_Texture.h"
 namespace DX9
 {
@@ -26,7 +27,7 @@ namespace DX9
 		~Sprite();
 
 		
-		bool Create(LPDIRECT3DDEVICE9 device);
+		bool Create();
 		//読み込んだテクスチャの全範囲を描画
 		//1,テクスチャ 2,座標
 		void SimpleDraw(LPDIRECT3DTEXTURE9 tex, float x, float y);

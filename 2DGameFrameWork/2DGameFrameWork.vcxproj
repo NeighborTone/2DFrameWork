@@ -146,6 +146,7 @@
     <ClCompile Include="DirectX9\DirectX.cpp" />
     <ClCompile Include="DirectX9\DX9_Device.cpp" />
     <ClCompile Include="DirectX9\DX9_Font.cpp" />
+    <ClCompile Include="DirectX9\DX9_Input.cpp" />
     <ClCompile Include="DirectX9\DX9_Sprire.cpp" />
     <ClCompile Include="DirectX9\DX9_Texture.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -156,15 +157,16 @@
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DirectX9\MyClass.h" />
     <ClInclude Include="DirectX9\DirectX.h" />
     <ClInclude Include="DirectX9\DX9_Device.h" />
     <ClInclude Include="DirectX9\DX9_Font.h" />
+    <ClInclude Include="DirectX9\DX9_Input.h" />
     <ClInclude Include="DirectX9\DX9_Sprire.h" />
     <ClInclude Include="DirectX9\DX9_Texture.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Mainloop.h" />
+    <ClInclude Include="MyClass.h" />
     <ClInclude Include="System.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,4 +1,4 @@
-#include "DirectX9\MyClass.h"
+#include "MyClass.h"
 using namespace MyClass;
 
 Box::Box()

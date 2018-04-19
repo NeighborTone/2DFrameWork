@@ -1,8 +1,9 @@
 #include "DirectX.h"
-#include "MyClass.h"
+#include "../MyClass.h"
 #include "../Game.h"
 using namespace DX9;
 using namespace MyClass;
+
 
 bool DirectX::Init(System& win)
 {
@@ -10,7 +11,7 @@ bool DirectX::Init(System& win)
 	{
 		font.Create(direct3d.p_d3dDevice);
 	
-		game.Init(direct3d.p_d3dDevice);
+		game.Init();
 		return true;
 	}
 	return false;

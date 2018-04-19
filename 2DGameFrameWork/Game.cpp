@@ -1,9 +1,9 @@
 #include "Game.h"
-void Game::Init(IDirect3DDevice9* p_d3dDevice)
+void Game::Init()
 {
 	for (int i = 0; i < 16; ++i)
 	{
-		rota[i].image.Load(p_d3dDevice, "カーソル.png");
+		rota[i].image.Load("カーソル.png");
 		rota[i].vec2 = { 0 + (float)i * 80, 200 };
 		rota[i].r = 0;
 	}

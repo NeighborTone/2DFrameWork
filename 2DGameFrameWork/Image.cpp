@@ -11,10 +11,10 @@ Image::~Image()
 
 }
 
-void Image::Load(IDirect3DDevice9* p_d3dDevice,const char* path)
+void Image::Load(const char* path)
 {
-	tex.Create(p_d3dDevice, path);
-	sprite.Create(p_d3dDevice);
+	tex.Create(path);
+	sprite.Create();
 }
 
 void Image::Draw(float x, float y)

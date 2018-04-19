@@ -12,7 +12,7 @@ public:
 		float r;
 	}rota[16];
 	
-	void Init(IDirect3DDevice9* p_d3dDevice);
+	void Init();
 	void Run();
 	void Draw();
 	void Fin();
