@@ -50,7 +50,7 @@ void Game::Draw()
 		rota[i].draw = { 40,40,80,80 };
 		rota[i].image.DrawRota(rota[i].vec2, rota[i].r, rota[i].src, rota[i].draw);
 	}
-	me.image.Draw(me.vec2);
+	me.image.Draw(me.vec2,MyClass::GetColor(255,0,255,125));
 }
 void Game::Fin()
 {

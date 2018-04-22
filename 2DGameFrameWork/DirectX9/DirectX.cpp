@@ -9,16 +9,13 @@ namespace DX9
 	{
 		if (direct3d.Create(win))
 		{
-		
-			font.Create(direct3d.p_d3dDevice);
+			font.Create();
 			in.CreateInput(win.GetWindow());
 			pad.CreatePadInput(win.GetWindow());
 			game.Init();
 			return true;
 		}
 		return false;
-		
-		
 	}
 
 	void DirectX::Update()

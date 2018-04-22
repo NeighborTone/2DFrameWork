@@ -24,7 +24,7 @@ namespace DX9
 		}
 		return true;
 	}
-	void Sprite::SimpleDraw(LPDIRECT3DTEXTURE9 tex, float x, float y)
+	void Sprite::SimpleDraw(LPDIRECT3DTEXTURE9 tex, float x, float y, DWORD color) const
 	{
 		D3DXVECTOR3 center(0, 0, 0);
 		D3DXVECTOR3 pos3(x, y, 0);
@@ -34,11 +34,11 @@ namespace DX9
 			NULL,
 			NULL,   //中心点
 			&pos3, //座標
-			0xFFFFFFFF
+			color
 		);
 		pSprite->End();
 	}
-	void Sprite::SimpleDraw(LPDIRECT3DTEXTURE9 tex, D3DXVECTOR2 pos)
+	void Sprite::SimpleDraw(LPDIRECT3DTEXTURE9 tex, D3DXVECTOR2 pos, DWORD color) const
 	{
 
 		D3DXVECTOR3 pos3(pos.x, pos.y, 0);
@@ -48,7 +48,7 @@ namespace DX9
 			NULL,
 			NULL,   //中心点
 			&pos3, //座標
-			0xFFFFFFFF
+			color
 		);
 		pSprite->End();
 	}
@@ -84,8 +84,8 @@ namespace DX9
 		float  ys = (static_cast<float>(draw.bottom - draw.top)) / (static_cast<float>(src.bottom - src.top));
 		RECT rect = src;
 		D3DXVECTOR3 pos3(static_cast<float>(draw.left), static_cast<float>(draw.top), 0.0f);
-		D3DXVECTOR3  scale(xs, ys, 1.0f);
-		D3DXVECTOR3  center(static_cast<float>(draw.left), static_cast<float>(draw.top), 0);
+		D3DXVECTOR3 scale(xs, ys, 1.0f);
+		D3DXVECTOR3 center(static_cast<float>(draw.left), static_cast<float>(draw.top), 0);
 		D3DXVECTOR3 pos2(x, y, 0);
 		D3DXMATRIX matS;
 		D3DXMatrixScaling(&matS, scale.x, scale.y, scale.z);

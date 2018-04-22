@@ -15,6 +15,7 @@ public:
 		float r;
 	}rota[16], me;
 
+	
 	KeyBoard key;
 	Pad p1;
 	void Init();

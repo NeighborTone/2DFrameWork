@@ -15,7 +15,7 @@ namespace DX9
 		Font();
 		virtual ~Font();
 
-		bool Create(IDirect3DDevice9* pD3DDevice, std::string fontname = "Times New Roman", int FontHeight = 16);
+		bool Create(std::string fontname = "Times New Roman", int FontHeight = 16);
 		void Draw(DWORD color, int x, int y, const std::string Str, ...);		//printf‚Æ“¯‚¶‚æ‚¤‚ÈŠ´Šo‚Å•`‰æ‚·‚é
 	};
 }
