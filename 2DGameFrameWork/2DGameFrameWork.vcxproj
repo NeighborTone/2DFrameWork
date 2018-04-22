@@ -149,6 +149,8 @@
     <ClCompile Include="DirectX9\DX9_Input.cpp" />
     <ClCompile Include="DirectX9\DX9_Sprire.cpp" />
     <ClCompile Include="DirectX9\DX9_Texture.cpp" />
+    <ClCompile Include="DirectX9\wav.cpp" />
+    <ClCompile Include="DirectX9\XAudio.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="Keyboard.cpp" />
@@ -165,6 +167,8 @@
     <ClInclude Include="DirectX9\DX9_Input.h" />
     <ClInclude Include="DirectX9\DX9_Sprire.h" />
     <ClInclude Include="DirectX9\DX9_Texture.h" />
+    <ClInclude Include="DirectX9\wav.h" />
+    <ClInclude Include="DirectX9\XAudio.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="Keyboard.h" />

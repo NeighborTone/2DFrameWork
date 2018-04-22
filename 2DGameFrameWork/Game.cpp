@@ -8,7 +8,7 @@ void Game::Init()
 		rota[i].vec2 = { 0 + (float)i * 80, 200 };
 		rota[i].r = 0;
 	}
-
+	wav.Load("Grass.wav");
 	me.image.Load("ÉJÅ[É\Éã.png");
 	me.vec2 = { 0,0 };
 }
