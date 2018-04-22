@@ -154,6 +154,7 @@
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="Mainloop.cpp" />
     <ClCompile Include="MyClass.cpp" />
+    <ClCompile Include="Pad.cpp" />
     <ClCompile Include="System.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
@@ -169,6 +170,7 @@
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Mainloop.h" />
     <ClInclude Include="MyClass.h" />
+    <ClInclude Include="Pad.h" />
     <ClInclude Include="System.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

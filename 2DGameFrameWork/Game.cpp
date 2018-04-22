@@ -15,24 +15,29 @@ void Game::Init()
 void Game::Run()
 {
 	key.Run();
+	p1.Run();
 	for (int i = 0; i < 16; ++i)
 	{
 		rota[i].r -= 1;
 	}
 
-	if (key.On(KeyBoard::Key::KEY_RIGHT))
+	if (key.On(KeyBoard::Key::KEY_RIGHT)
+		|| p1.StickOn(Pad::Stick::RIGHT))
 	{
 		me.vec2.x += 5;
 	}
-	if (key.On(KeyBoard::Key::KEY_LEFT))
+	if (key.On(KeyBoard::Key::KEY_LEFT)
+		|| p1.StickOn(Pad::Stick::LEFT))
 	{
 		me.vec2.x -= 5;
 	}
-	if (key.On(KeyBoard::Key::KEY_UP))
+	if (key.On(KeyBoard::Key::KEY_UP)
+		|| p1.StickOn(Pad::Stick::UP))
 	{
 		me.vec2.y -= 5;
 	}
-	if (key.On(KeyBoard::Key::KEY_DOWN))
+	if (key.On(KeyBoard::Key::KEY_DOWN)
+		|| p1.StickOn(Pad::Stick::DOWN))
 	{
 		me.vec2.y += 5;
 	}

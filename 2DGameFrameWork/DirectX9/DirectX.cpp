@@ -1,7 +1,6 @@
 #include "DirectX.h"
 #include "../MyClass.h"
 #include "../Game.h"
-
 using namespace MyClass;
 
 namespace DX9
@@ -13,6 +12,7 @@ namespace DX9
 		
 			font.Create(direct3d.p_d3dDevice);
 			in.CreateInput(win.GetWindow());
+			pad.CreatePadInput(win.GetWindow());
 			game.Init();
 			return true;
 		}

@@ -2,7 +2,9 @@
 
 namespace DX9
 {
+	//global------------------------------------
 	Input in;
+	//------------------------------------------
 
 	Input::Input() :buf(),prebuf()
 	{
@@ -197,5 +199,223 @@ namespace DX9
 		//前の入力があり現在の入力があるか
 		return input == 0 && prevInput != 0;
 	}
+	//global------------------------------------
+	PadInput pad;
+	//------------------------------------------
+
+	//static------------------------------------
+	int PadInput::padNo = 0;	
+	LPDIRECTINPUTDEVICE8 PadInput::pPad[PadInput::padNum] =
+	{
+		nullptr
+	};
+
+	BOOL CALLBACK PadInput::EnumPadCallback(const DIDEVICEINSTANCE* inst, void* pContext)
+	{
+		//保存
+		static GUID padGuid[padNum];
+		//すでに取得済みのデバイスだった場合にはもう一度実行する
+		for (int no = 0; no < padNo; ++no)
+		{
+			if (inst->guidInstance == padGuid[no])
+			{
+				return DIENUM_CONTINUE;	//列挙を続行
+			}
+		}
+		if (FAILED(DX9::in.GetpDI()->CreateDevice(
+			inst->guidInstance,
+			&pPad[padNo],
+			NULL)))
+		{
+			return DIENUM_CONTINUE;
+		}
+		padGuid[padNo] = inst->guidInstance;
+		return DIENUM_STOP;				//列挙を停止
+	}
+
+	BOOL CALLBACK PadInput::EnumAxisCallback(
+		const DIDEVICEOBJECTINSTANCE* objInst,
+		void* pContext)
+	{
+		//軸範囲指定
+		DIPROPRANGE prg;
+		prg.diph.dwSize = sizeof(prg);
+		prg.diph.dwHeaderSize = sizeof(prg);
+		prg.diph.dwHow = DIPH_BYID;
+		prg.diph.dwObj = objInst->dwType;
+		prg.lMin = -1000;	//傾き最小値
+		prg.lMax = 1000;	//傾き最大値
+	
+		HRESULT hr = pPad[padNo]->SetProperty(
+			DIPROP_RANGE,
+			&prg.diph);
+		if (FAILED(hr))
+		{
+			return DIENUM_STOP;
+		}
+
+		return DIENUM_CONTINUE;
+	}
+	//------------------------------------------
+
+	PadInput::PadInput() : didevCaps(),buf(),prebuf()
+	{
+
+	}
+
+	PadInput::~PadInput()
+	{
+		for (padNo = 0; padNo < padNum; ++padNo)
+		{
+			//パッドが接続されてなければ終了
+			if (!pPad[padNo])
+			{
+				continue;
+			}
+			//入力を受け付けない
+			pPad[padNo]->Unacquire();
+			//デバイス開放
+			if (pPad[padNo] != nullptr)
+			{
+				pPad[padNo]->Release();
+			}
+		}
+	}
+
+	void PadInput::CreatePadInput(const HWND& hwnd)
+	{
+		for (padNo = 0; padNo < padNum; ++padNo) 
+		{
+			//DirectInputデバイス作成
+			if (FAILED(DX9::in.GetpDI()->EnumDevices(
+				DI8DEVCLASS_GAMECTRL,
+				EnumPadCallback,
+				NULL, DIEDFL_ATTACHEDONLY)))
+			{
+				continue;
+			}
+			//取得に失敗したら終了
+			if (!pPad[padNo])
+			{
+				continue;
+			}
+			//ジョイパッドのデータフォーマットの設定
+			if (FAILED(pPad[padNo]->SetDataFormat(&c_dfDIJoystick)))
+			{
+				continue;
+			}
+			//強調レベル設定
+			if (FAILED(pPad[padNo]->SetCooperativeLevel(
+				hwnd, DISCL_NONEXCLUSIVE | DISCL_BACKGROUND)))
+			{
+				continue;
+			}
+			//パッドデータ取得
+			this->didevCaps[padNo].dwSize = sizeof(DIDEVCAPS);
+			if (FAILED(pPad[padNo]->GetCapabilities(&didevCaps[padNo])))
+			{
+				continue;
+			}
+			//パッド設定
+			if (FAILED(pPad[padNo]->EnumObjects(
+				EnumAxisCallback,
+				hwnd, DIDFT_AXIS)))
+			{
+				continue;
+			}
+			//デバイスの取得
+			if (FAILED(pPad[padNo]->Poll()))
+			{
+				while (pPad[padNo]->Acquire() == DIERR_INPUTLOST);
+			}
+		}
+	}
+	void PadInput::UpDate()
+	{
+		for (padNo = 0; padNo < padNum; ++padNo) {
+			//パッドを取得していなければ処理を行わない
+			if (!pPad[padNo])
+			{
+				continue;
+			}
+			HRESULT hr = pPad[padNo]->Acquire();
+
+			//消失したデバイスを取得したか、消失していなかったら
+			if (hr == DI_OK || hr == S_FALSE)
+			{
+				//データの取得
+				if (SUCCEEDED(pPad[padNo]->Poll())) 
+				{
+					//前のバッファを保存
+					prebuf[padNo] = buf[padNo];
+					//バッファに入力を保存
+					pPad[padNo]->GetDeviceState(sizeof(DIJOYSTATE), &buf);
+				}
+			}
+		}
+	}
+
+	bool PadInput::Press(const int key, const int no)
+	{
+		if (!pPad[0])
+		{
+			return false;
+		}
+		unsigned char input = buf[no].rgbButtons[key] & 0x80;
+	
+		return input != 0;
+	}
+
+	bool PadInput::Push(const int key, const int no)
+	{
+		if (!pPad[0])
+		{
+			return false;
+		}
+		unsigned char input = buf[no].rgbButtons[key] & 0x80;
+		unsigned char prevInput = prebuf[no].rgbButtons[key] & 0x80;
+		
+		return input != 0 && prevInput == 0;
+	}
+	
+	bool PadInput::Free(const int key_, const int no_)
+	{
+		unsigned char input = buf[no_].rgbButtons[key_] & 0x80;
+
+		return input == 0;
+	}
+
+	bool PadInput::Pull(const int key, const int no)
+	{
+		unsigned char input = buf[no].rgbButtons[key] & 0x80;
+		unsigned char prevInput = prebuf[no].rgbButtons[key] & 0x80;
+
+		return input == 0 && prevInput != 0;
+	}
+
+	BYTE PadInput::GetPovPosition(const int no)
+	{
+		switch (buf[no].rgdwPOV[no])
+		{
+		case 0:
+			return PAD_UP;
+		case 4500:
+			return PAD_UP | PAD_RIGHT;
+		case 9000:
+			return PAD_RIGHT;
+		case 13500:
+			return PAD_RIGHT | PAD_DOWN;
+		case 18000:
+			return PAD_DOWN;
+		case 22500:
+			return PAD_DOWN | PAD_LEFT;
+		case 27000:
+			return PAD_LEFT;
+		case 31500:
+			return PAD_LEFT | PAD_UP;
+		} 
+		return (BYTE)0xffffffff;	//未押下時
+	}
+
 }
 

@@ -1,6 +1,7 @@
 #pragma once
 #include "Image.h"
 #include "Keyboard.h"
+#include "Pad.h"
 
 class Game
 {
@@ -15,6 +16,7 @@ public:
 	}rota[16], me;
 
 	KeyBoard key;
+	Pad p1;
 	void Init();
 	void Run();
 	void Draw();

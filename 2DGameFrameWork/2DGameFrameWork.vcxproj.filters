@@ -71,6 +71,9 @@
     <ClCompile Include="Keyboard.cpp">
       <Filter>Main\Input</Filter>
     </ClCompile>
+    <ClCompile Include="Pad.cpp">
+      <Filter>Main\Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectX9\DirectX.h">
@@ -107,6 +110,9 @@
       <Filter>DirectX</Filter>
     </ClInclude>
     <ClInclude Include="Keyboard.h">
+      <Filter>Main\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Pad.h">
       <Filter>Main\Input</Filter>
     </ClInclude>
   </ItemGroup>
