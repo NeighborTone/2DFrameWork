@@ -5,7 +5,6 @@
 #include "DX9_Sprire.h"
 #include "DX9_Input.h"
 #include "../System.h"
-#include "../Image.h"
 #include "../Game.h"
 namespace DX9
 {
@@ -17,7 +16,7 @@ namespace DX9
 		Game game;
 		DX9::Font font;
 	
-		DirectX() {};
+		 DirectX() {};
 		~DirectX() {};
 		bool Init(System& win);
 		void Update();

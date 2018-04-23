@@ -2,7 +2,7 @@
 #include "Image.h"
 #include "Keyboard.h"
 #include "Pad.h"
-#include "DirectX9\XAudio.h"
+#include "DirectX9/audio.h"
 class Game
 {
 public:
@@ -15,7 +15,8 @@ public:
 		float r;
 	}rota[16], me;
 
-	WAV wav;
+	Audio* psound;
+	Audio* psound2;
 	KeyBoard key;
 	Pad p1;
 	void Init();

@@ -1,6 +1,6 @@
 #include "DirectX.h"
 #include "../MyClass.h"
-#include "../Game.h"
+
 using namespace MyClass;
 
 namespace DX9

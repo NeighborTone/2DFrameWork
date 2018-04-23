@@ -4,6 +4,7 @@
 class	KeyBoard
 {
 public:
+	
 	enum class Key
 	{
 		KEY_UP,				//ª				
