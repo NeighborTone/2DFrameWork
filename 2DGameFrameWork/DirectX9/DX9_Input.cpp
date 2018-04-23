@@ -76,7 +76,7 @@ namespace DX9
 			DIK_UP,				//↑				
 			DIK_LEFT,			//←
 			DIK_RIGHT,			//→			
-			DIK_DOWN	,			//↓
+			DIK_DOWN	,		//↓
 			DIK_ESCAPE,			//Esc
 			DIK_RETURN,	        //Enter
 			DIK_LSHIFT,	        //Shift(左)	
@@ -86,8 +86,8 @@ namespace DX9
 			DIK_LMENU,			//Alt(左)
 			DIK_RMENU,			//Alt(右)
 			DIK_SPACE,			//Space
-			DIK_BACK	,			//Back Space
-			DIK_TAB,				//Tab
+			DIK_BACK	,		//Back Space
+			DIK_TAB,			//Tab
 			DIK_1,     			//1
 			DIK_2,     			//2
 			DIK_3,     			//3
@@ -286,6 +286,7 @@ namespace DX9
 	{
 		for (padNo = 0; padNo < padNum; ++padNo) 
 		{
+			
 			//DirectInputデバイス作成
 			if (FAILED(DX9::in.GetpDI()->EnumDevices(
 				DI8DEVCLASS_GAMECTRL,
@@ -395,8 +396,13 @@ namespace DX9
 
 	BYTE PadInput::GetPovPosition(const int no)
 	{
+		if (!pPad[0])
+		{
+			return (BYTE)0xffffffff;	//パッドが接続されていなければ未押下状態を返す
+		}
 		switch (buf[no].rgdwPOV[no])
 		{
+			
 		case 0:
 			return PAD_UP;
 		case 4500:
@@ -414,7 +420,9 @@ namespace DX9
 		case 31500:
 			return PAD_LEFT | PAD_UP;
 		} 
+		
 		return (BYTE)0xffffffff;	//未押下時
+		
 	}
 
 }
