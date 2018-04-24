@@ -34,7 +34,7 @@ namespace DX9
 
 		D3DPRESENT_PARAMETERS parameter;
 		SecureZeroMemory(&parameter, sizeof(parameter));
-
+		win.SetWindowSize(420, 270);
 		parameter.BackBufferWidth = win.Width();											//バックバッファ(裏画面)設定値
 		parameter.BackBufferHeight = win.Height();										//
 		parameter.BackBufferFormat = display.Format;									//画面のフォーマット情報

@@ -30,6 +30,12 @@
     <Filter Include="Main\Input">
       <UniqueIdentifier>{bd650ae0-bae6-4d85-9e11-e4eece103fd2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Main\Scene">
+      <UniqueIdentifier>{b3602200-23ae-47e2-a398-de51c5f210fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\GameObject">
+      <UniqueIdentifier>{b13c2435-6053-43cd-99a5-865c3b338c45}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -80,6 +86,9 @@
     <ClCompile Include="DirectX9\audio.cpp">
       <Filter>DirectX</Filter>
     </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Main\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectX9\DirectX.h">
@@ -126,6 +135,15 @@
     </ClInclude>
     <ClInclude Include="DirectX9\audio.h">
       <Filter>DirectX</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Main\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Main\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjcet.h">
+      <Filter>Main\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

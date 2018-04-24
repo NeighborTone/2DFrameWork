@@ -1,59 +1,90 @@
 #include "Game.h"
+using namespace MyClass;
 
-void Game::Init()
+//GameLogic
+void Cursur::Move(KeyBoard& key)
 {
-	for (int i = 0; i < 16; ++i)
+	
+	if (key.Down(KeyBoard::Key::KEY_RIGHT))
 	{
-		rota[i].image.Load("カーソル.png");
-		rota[i].vec2 = { 0 + (float)i * 80, 200 };
-		rota[i].r = 0;
+		CURSOR_RIGHT_MAX
+		{
+			pos.x += 42;
+		}
+		
+	}
+	if (key.Down(KeyBoard::Key::KEY_LEFT))
+	{
+		CURSOR_LEFT_MAX
+		{
+			pos.x -= 42;
+		}
+		
+	}
+	if (key.Down(KeyBoard::Key::KEY_DOWN))
+	{
+		CURSOR_DOWN_MAX
+		{
+			pos.y += 74;
+		}
+		
+	}
+	if (key.Down(KeyBoard::Key::KEY_UP))
+	{
+		CURSOR_UP_MAX
+		pos.y -= 74;
+	}
+}
+
+
+
+
+
+
+//GameControl
+bool Game::Initialize()
+{
+	cursor.image.Load("image/cursor.png");
+	back.image.Load("image/back.jpg");
+	for (int y = 0; y < 3; ++y)
+	{
+		for (int x = 0; x < 6; ++x)
+		{
+			field[y][x].pos = { static_cast<float>((90 + CARDSIZE_W * x) +10 *x), 
+									   static_cast<float>((10 + CARDSIZE_H * y)    +10 *y) };
+			field[y][x].image.Load("image/cursor.png");
+
+			card[y][x].pos = { static_cast<float>((90 + CARDSIZE_W * x) + 10 * x),
+										static_cast<float>((10 + CARDSIZE_H * y) + 10 * y) };
+			card[y][x].state = Card::STATE::NONE;
+		}
 	}
 	
-
-	me.image.Load("カーソル.png");
-	me.vec2 = { 0,0 };
+	cursor.pos = {90,10};
+	return true;
 }
-void Game::Run()
+void Game::Update()
 {
 	key.Run();
-	p1.Run();
-	for (int i = 0; i < 16; ++i)
-	{
-		rota[i].r -= 1;
-	}
+	cursor.Move(key);
 
-	if (key.On(KeyBoard::Key::KEY_RIGHT)
-		|| p1.StickOn(Pad::Stick::RIGHT))
-	{
-		me.vec2.x += 5;
-	}
-	if (key.On(KeyBoard::Key::KEY_LEFT)
-		|| p1.StickOn(Pad::Stick::LEFT))
-	{
-		me.vec2.x -= 5;
-	}
-	if (key.On(KeyBoard::Key::KEY_UP)
-		|| p1.StickOn(Pad::Stick::UP))
-	{
-		me.vec2.y -= 5;
-	}
-	if (key.On(KeyBoard::Key::KEY_DOWN)
-		|| p1.StickOn(Pad::Stick::DOWN))
-	{
-		me.vec2.y += 5;
-	}
+
 }
 void Game::Draw()
 {
-	for (int i = 0; i < 16; ++i)
+	
+	back.image.Draw(back.pos,GetColor(255,0,255));
+	for (int y = 0; y < 3; ++y)
 	{
-		rota[i].src = { 0,0,80,80 };
-		rota[i].draw = { 40,40,80,80 };
-		rota[i].image.DrawRota(rota[i].vec2, rota[i].r, rota[i].src, rota[i].draw);
+		for (int x = 0; x < 6; ++x)
+		{
+			field[y][x].image.Draw(field[y][x].pos);
+		}
 	}
-	me.image.Draw(me.vec2,MyClass::GetColor(255,0,255,125));
+
+	cursor.image.Draw(cursor.pos, GetColor(55, 225, 255));
 }
-void Game::Fin()
+void Game::Finalize()
 {
 	
 }

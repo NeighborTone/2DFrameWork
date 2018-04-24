@@ -1,4 +1,5 @@
 #pragma once
+#include "../SceneManager.h"
 #include "DX9_Device.h"
 #include "DX9_Texture.h"
 #include "DX9_Font.h"
@@ -13,7 +14,7 @@ namespace DX9
 	private:
 		
 	public: 
-		Game game;
+		SceneManeger* scene;
 		DX9::Font font;
 	
 		 DirectX() {};

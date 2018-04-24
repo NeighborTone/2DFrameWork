@@ -12,7 +12,8 @@ namespace DX9
 			font.Create();
 			in.CreateInput(win.GetWindow());
 			pad.CreatePadInput(win.GetWindow());
-			game.Init();
+			scene = SceneManeger::GetInstance();
+			scene->PushScene(new Game);
 			return true;
 		}
 		return false;
@@ -21,7 +22,7 @@ namespace DX9
 	void DirectX::Update()
 	{
 	
-		game.Run();
+		scene->GetCurrentScene()->Update();
 	}
 
 	void DirectX::Draw()
@@ -39,7 +40,7 @@ namespace DX9
 				0
 			);
 
-			game.Draw();
+			scene->GetCurrentScene()->Draw();
 
 			font.Draw(GetColor(0, 0, 0), 0, 900, "(^q^)");
 
