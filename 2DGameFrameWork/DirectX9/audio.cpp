@@ -1,6 +1,5 @@
 #include "audio.h"
 
-#define SAFE_DELETE(p)  {delete p; p = nullptr;}
 
 IXAudio2* Audio::pAudio = nullptr;
 IXAudio2MasteringVoice* Audio::pMaster = nullptr;
@@ -153,8 +152,8 @@ void Audio::Exit()
 		pMaster = nullptr;
 	}
 
-	SAFE_DELETE(pAudio);	//XAudio2インターフェイスの破棄
-
+	pAudio->Release();	//XAudio2インターフェイスの破棄
+	pAudio = nullptr;
 	CoUninitialize();
 }
 

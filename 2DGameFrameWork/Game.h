@@ -14,9 +14,7 @@ public:
 		MyClass::Box draw;
 		float r;
 	}rota[16], me;
-
-	Audio* psound;
-	Audio* psound2;
+	
 	KeyBoard key;
 	Pad p1;
 	void Init();

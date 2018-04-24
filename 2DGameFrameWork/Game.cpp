@@ -8,8 +8,7 @@ void Game::Init()
 		rota[i].vec2 = { 0 + (float)i * 80, 200 };
 		rota[i].r = 0;
 	}
-	psound->GetInst()->Load();
-	psound->GetInst()->Play();
+	
 
 	me.image.Load("ƒJ[ƒ\ƒ‹.png");
 	me.vec2 = { 0,0 };
