@@ -36,4 +36,6 @@ namespace DX9
 		void Draw(const D3DXVECTOR2& pos,const RECT& draw_, const RECT& src_, const LPDIRECT3DTEXTURE9& texture_, const float degree_, const D3DXVECTOR2& center_, const D3DCOLOR& color_ = 0xffffffff)const;
 		void Draw(const float& x, const float& y, const RECT& draw_, const RECT& src_, const LPDIRECT3DTEXTURE9& texture_, const float degree_, const D3DXVECTOR2& center_, const D3DCOLOR& color_ = 0xffffffff)const;
 	};
+
+	extern Sprite sprite;
 }

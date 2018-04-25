@@ -1,18 +1,10 @@
 #pragma once
+#include <array>
 #include "GameObjcet.h"
 #include "Scene.h"
 #include "Image.h"
 #include "Keyboard.h"
-struct Card : public GameObject
-{
-	enum class STATE
-	{
-		NONE,
-		OPEN,
-	};
-	STATE state;
 
-};
 struct Cursur : public GameObject
 {
 #define CURSOR_RIGHT_MAX if (pos.x < 42 * 7)
@@ -22,15 +14,54 @@ struct Cursur : public GameObject
 	void Move(KeyBoard&);
 };
 
+struct Card : public GameObject
+{
+	static int cnt;
+	static int quantity;	//Žc”
+	static int pair;
+
+	enum class STATE
+	{
+		CLOSE,
+		OPEN,
+		CLEAR,
+	};
+	enum class ID
+	{
+		ONE,
+		TWO,
+		THREE,
+		FOUR,
+		FIVE,
+		SIX,
+		SEVEN,
+		EIGHT,
+		NINE,
+		
+		NOT,
+	};
+	STATE state;
+	ID id;
+	static ID preId;
+	static ID nowId;
+	static bool flag;
+	static bool flag2;
+	void Select(Cursur&, KeyBoard);
+	void Pair();
+
+	void Init(int&, int&);
+	void ShowCard();
+};
+
 class Game : public Scene
 {
 public:
-	const int CARDSIZE_H = 64;
-	const int CARDSIZE_W = 32;
+	static const int CARDSIZE_H = 64;
+	static const int CARDSIZE_W = 32;
 	
-	Card card[3][6];
+	std::array<std::array<Card, 6>, 3> card;	//card[3][6]
 	Cursur cursor;
-	GameObject back,field[3][6];
+	GameObject back;
 	KeyBoard key;
 	
 	bool Initialize() override;

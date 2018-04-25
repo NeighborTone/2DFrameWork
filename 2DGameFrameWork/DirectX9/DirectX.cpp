@@ -9,7 +9,6 @@ namespace DX9
 	{
 		if (direct3d.Create(win))
 		{
-			font.Create();
 			in.CreateInput(win.GetWindow());
 			pad.CreatePadInput(win.GetWindow());
 			scene = SceneManeger::GetInstance();
@@ -41,8 +40,6 @@ namespace DX9
 			);
 
 			scene->GetCurrentScene()->Draw();
-
-			font.Draw(GetColor(0, 0, 0), 0, 900, "(^q^)");
 
 			//•`‰æI—¹
 			direct3d.p_d3dDevice->EndScene();

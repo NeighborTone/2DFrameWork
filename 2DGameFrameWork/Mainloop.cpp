@@ -3,9 +3,8 @@
 
 bool Mainloop::Init(HINSTANCE hInstance, int nCmdShow)
 {
-	window.SetWindowSize(1280, 960);
 	//ウィンドウ生成
-	const bool iswin = 	window.Create("test",hInstance, nCmdShow);
+	const bool iswin = 	window.Create("NervousBreakDown",hInstance, nCmdShow);
 	//DirectX9のデバイス生成
 	const bool isDirectX = directx.Init(window);
 	//ウィンドウ描画
@@ -42,4 +41,5 @@ void Mainloop::Run()
 	//	ShowCursor(false);	//マウス非表示
 	
 	}
+
 }
