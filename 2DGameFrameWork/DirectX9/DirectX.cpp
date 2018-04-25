@@ -12,7 +12,7 @@ namespace DX9
 			in.CreateInput(win.GetWindow());
 			pad.CreatePadInput(win.GetWindow());
 			scene = SceneManeger::GetInstance();
-			scene->PushScene(new Game);
+			scene->PushScene(new Title);
 			return true;
 		}
 		return false;
@@ -34,7 +34,7 @@ namespace DX9
 				0,
 				NULL,
 				D3DCLEAR_TARGET | D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER,
-				GetColor(100, 149, 237),
+				GetColor(0, 0, 0),
 				1.0f,
 				0
 			);

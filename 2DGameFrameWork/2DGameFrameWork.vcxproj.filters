@@ -15,9 +15,6 @@
     <Filter Include="Main\Image">
       <UniqueIdentifier>{6a6f37d6-34fb-413c-805f-7f82000f5c86}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Main\Game">
-      <UniqueIdentifier>{ced59224-d380-4577-950d-d695dcdd0035}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Main\MyClass">
       <UniqueIdentifier>{a2a90196-53f9-46ab-b764-ebec3890d395}</UniqueIdentifier>
     </Filter>
@@ -35,6 +32,12 @@
     </Filter>
     <Filter Include="Main\GameObject">
       <UniqueIdentifier>{b13c2435-6053-43cd-99a5-865c3b338c45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\Scene\Game">
+      <UniqueIdentifier>{ced59224-d380-4577-950d-d695dcdd0035}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main\Scene\Title">
+      <UniqueIdentifier>{d451575d-95e0-42cb-a566-38499e1fee44}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -60,7 +63,7 @@
       <Filter>Main\Image</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>Main\Game</Filter>
+      <Filter>Main\Scene\Game</Filter>
     </ClCompile>
     <ClCompile Include="MyClass.cpp">
       <Filter>Main\MyClass</Filter>
@@ -89,6 +92,9 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>Main\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Title.cpp">
+      <Filter>Main\Scene\Title</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectX9\DirectX.h">
@@ -110,7 +116,7 @@
       <Filter>Main\Image</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
-      <Filter>Main\Game</Filter>
+      <Filter>Main\Scene\Game</Filter>
     </ClInclude>
     <ClInclude Include="System.h">
       <Filter>Main\System</Filter>
@@ -144,6 +150,12 @@
     </ClInclude>
     <ClInclude Include="GameObjcet.h">
       <Filter>Main\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Title.h">
+      <Filter>Main\Scene\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="easing.hpp">
+      <Filter>Main</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

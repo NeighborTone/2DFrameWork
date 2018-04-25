@@ -1,9 +1,10 @@
 #pragma once
+#include "DirectX9\DX9_Font.h"
 #include <array>
 #include "GameObjcet.h"
-#include "Scene.h"
 #include "Image.h"
 #include "Keyboard.h"
+#include "SceneManager.h"
 
 struct Cursur : public GameObject
 {
@@ -17,8 +18,6 @@ struct Cursur : public GameObject
 struct Card : public GameObject
 {
 	static int cnt;
-	static int quantity;	//écêî
-	static int pair;
 
 	enum class STATE
 	{
@@ -46,6 +45,8 @@ struct Card : public GameObject
 	static ID nowId;
 	static bool flag;
 	static bool flag2;
+	
+
 	void Select(Cursur&, KeyBoard);
 	void Pair();
 

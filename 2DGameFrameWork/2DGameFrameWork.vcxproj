@@ -159,6 +159,7 @@
     <ClCompile Include="Pad.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="System.cpp" />
+    <ClCompile Include="Title.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +171,7 @@
     <ClInclude Include="DirectX9\DX9_Texture.h" />
     <ClInclude Include="DirectX9\wav.h" />
     <ClInclude Include="DirectX9\audio.h" />
+    <ClInclude Include="easing.hpp" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObjcet.h" />
     <ClInclude Include="Image.h" />
@@ -180,6 +182,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="System.h" />
+    <ClInclude Include="Title.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

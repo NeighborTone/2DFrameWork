@@ -6,7 +6,7 @@
 #include "DX9_Sprire.h"
 #include "DX9_Input.h"
 #include "../System.h"
-#include "../Game.h"
+#include "../Title.h"
 namespace DX9
 {
 	class DirectX

@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Title.h"
 #include <random>
 #include <algorithm>
 
@@ -7,11 +8,11 @@ using namespace MyClass;
 //GameLogic
 
 int Card::cnt = 0;
-int Card::quantity = 18;
 bool  Card::flag = false;
 bool  Card::flag2 = false;
 Card::ID Card::preId = Card::ID::NOT;
 Card::ID Card::nowId = Card::ID::NOT;
+
 void Cursur::Move(KeyBoard& key)
 {
 	
@@ -183,7 +184,7 @@ void Card::ShowCard()
 
 			}
 			image.DrawRota(pos, 0, src, draw);
-	
+			
 }
 
 
@@ -231,6 +232,11 @@ bool Game::Initialize()
 void Game::Update()
 {
 	key.Run();
+	if (key.Down(KeyBoard::Key::KEY_X))
+	{
+		SceneManeger::GetInstance()->ChangeScene(new Title);
+	}
+	
 	cursor.Move(key);
 	for (int y = 0; y < 3; ++y)
 	{
@@ -247,7 +253,7 @@ void Game::Update()
 }
 void Game::Draw()
 {
-	back.image.Draw(back.pos,GetColor(255,0,255));
+	back.image.Draw(back.pos,GetColor(255,255,200));
 	
 	for (int y = 0; y < 3; ++y)
 	{
