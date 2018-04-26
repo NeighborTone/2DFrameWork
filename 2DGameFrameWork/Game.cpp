@@ -8,7 +8,8 @@ using namespace MyClass;
 
 //GameLogic
 
-int Card::cnt = 0;
+int Game::revCnt = 0;
+bool Game::isui = false;
 bool  Card::flag = false;
 bool  Card::flag2 = false;
 Card::ID Card::preId = Card::ID::NOT;
@@ -68,9 +69,13 @@ void Card::Select(Cursur& c, KeyBoard key)
 		if (state == Card::STATE::CLOSE)
 		{
 			state = Card::STATE::OPEN;
-			++cnt;
+			++Game::revCnt;
 		}
 		
+	}
+	if (Game::revCnt == 2 && key.Down(KeyBoard::Key::KEY_X) && state == Card::STATE::OPEN)
+	{
+		++Game::revCnt;
 	}
 	
 }
@@ -78,31 +83,33 @@ void Card::Select(Cursur& c, KeyBoard key)
 bool Card::IsPair()
 {
 	
-	if (cnt == 3)
+	if (Game::revCnt == 3)
 	{
-		cnt = 0;
+		Game::revCnt = 0;
+		Game::isui = false;
 	}
 
 
-	if (cnt == 0 && state == Card::STATE::OPEN)
+	if (Game::revCnt == 0 && state == Card::STATE::OPEN)
 	{
 		state = Card::STATE::CLOSE;
 		flag = false;
 		flag2 = false;
 	}
-	if (cnt == 1 && flag == false)
+	if (Game::revCnt == 1 && flag == false)
 	{
 		flag = true;
 		preId = id;
 	}
-	if (cnt == 2 && flag2 == false)
+	if (Game::revCnt == 2 && flag2 == false)
 	{
 		flag2 = true;
 		nowId = id;
 	}
-	if (cnt == 2 && state == Card::STATE::OPEN && preId == nowId)
+	if (Game::revCnt == 2 && state == Card::STATE::OPEN && preId == nowId)
 	{
 		state = Card::STATE::CLEAR;
+		
 		return true;
 	}
 	
@@ -196,6 +203,8 @@ bool Game::Initialize()
 	back.image.Load("image/back.jpg");
 	nice.image.Load("image/nice.png");
 	clear.image.Load("image/clear.png");
+	ui.image.Load("image/zz.png");
+	ui2.image.Load("image/c.png");
 	//‚²‚è‰Ÿ‚µ
 	card[0][0].id = Card::ID::SEVEN;
 	card[0][1].id = Card::ID::THREE;
@@ -231,14 +240,19 @@ bool Game::Initialize()
 	clear.pos = { 55,-40 };
 	nice.pos = { 0,0 };
 	cursor.pos = {90,10};
+	ui.pos = {42 * 7 +35,165};
+	ui2.pos = ui.pos;
 	open = 0;
+	a = 255;
+	Isalpha = false;
+	
 	return true;
 }
 
 void Game::Update()
 {
 	key.Run();
-	if (key.Down(KeyBoard::Key::KEY_X))
+	if (key.Down(KeyBoard::Key::KEY_E))
 	{
 		SceneManeger::GetInstance()->ChangeScene(new Title);
 	}
@@ -254,6 +268,7 @@ void Game::Update()
 			{
 				++open;
 				Isalpha = true;
+				isui = true;
 			}
 		
 		}
@@ -277,14 +292,27 @@ void Game::Draw()
 			card[y][x].ShowCard();
 		}
 	}
+	cursor.src = {0,0,32,64};
+	cursor.draw = { 16,32,-32,64 };
+	cursor.image.DrawRota(cursor.pos,0,cursor.src,cursor.draw, GetColor(55, 225, 255));
 	
-	cursor.image.Draw(cursor.pos, GetColor(55, 225, 255));
-
 	for (int y = 0; y < 3; ++y)
 	{
 		for (int x = 0; x < 6; ++x)
 		{
-			
+			if (revCnt < 2 || revCnt == 3)
+			{
+				ui.image.Draw(ui.pos);
+			}
+
+			if (revCnt == 2 && card[y][x].state == Card::STATE::OPEN)
+			{
+				ui2.image.Draw(ui2.pos);
+			}
+			if (revCnt == 2  && isui && card[y][x].state != Card::STATE::OPEN)
+			{
+				ui.image.Draw(ui.pos);
+			}
 		}
 	}
 	if (Isalpha)

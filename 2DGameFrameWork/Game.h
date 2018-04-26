@@ -17,7 +17,7 @@ struct Cursur : public GameObject
 
 struct Card : public GameObject
 {
-	static int cnt;
+	
 
 	enum class STATE
 	{
@@ -59,20 +59,20 @@ class Game : public Scene
 public:
 	static const int CARDSIZE_H = 64;
 	static const int CARDSIZE_W = 32;
-	
+	static int revCnt;
+
 	std::array<std::array<Card, 6>, 3> card;	//card[3][6]
 	Cursur cursor;
-	GameObject back,nice,clear;
+	GameObject back,nice,clear,ui,ui2;
 	KeyBoard key;
 	//alpha’l
-	bool Isalpha = false;
-	int a = 255;
+	bool Isalpha;
+	static bool isui;
+	int a;
 	int open;
 	bool Initialize() override;
 	void Update() override;
 	void Draw() override;
 	void Finalize() override;
-
-	
 };
 

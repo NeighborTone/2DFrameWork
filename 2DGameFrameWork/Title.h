@@ -3,6 +3,7 @@
 #include "GameObjcet.h"
 #include "Game.h"
 #include "Keyboard.h"
+#include "DirectX9\DX9_Font.h"
 
 class Title : public Scene
 {
@@ -11,7 +12,8 @@ public:
 	void Update() override;
 	void Draw() override;
 	void Finalize() override;
-	GameObject logo_N,logo_B, back;
 
+	int a;
+	GameObject logo_N,logo_B, back,button;
 	KeyBoard key;
 };
