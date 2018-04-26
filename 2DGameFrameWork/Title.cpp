@@ -24,8 +24,8 @@ void Title::Update()
 void Title::Draw()
 {
 	back.image.Draw(back.pos,GetColor(255, 255, 200,200));
-	logo_N.image.Draw(logo_N.pos,GetColor(255,225,255));
-	logo_B.image.Draw(logo_B.pos, GetColor(255, 225, 255));
+	logo_N.image.Draw(logo_N.pos,GetColor(255,195,255));
+	logo_B.image.Draw(logo_B.pos, GetColor(255, 195, 255));
 }
 
 void Title::Finalize()

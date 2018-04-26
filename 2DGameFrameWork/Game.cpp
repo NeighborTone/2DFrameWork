@@ -5,6 +5,7 @@
 
 using namespace MyClass;
 
+
 //GameLogic
 
 int Card::cnt = 0;
@@ -74,7 +75,7 @@ void Card::Select(Cursur& c, KeyBoard key)
 	
 }
 
-void Card::Pair()
+bool Card::IsPair()
 {
 	
 	if (cnt == 3)
@@ -102,10 +103,10 @@ void Card::Pair()
 	if (cnt == 2 && state == Card::STATE::OPEN && preId == nowId)
 	{
 		state = Card::STATE::CLEAR;
-
+		return true;
 	}
 	
-
+	return false;
 }
 
 void Card::ShowCard()
@@ -193,6 +194,8 @@ bool Game::Initialize()
 {
 	cursor.image.Load("image/cursor.png");
 	back.image.Load("image/back.jpg");
+	nice.image.Load("image/nice.png");
+	clear.image.Load("image/clear.png");
 	//‚²‚è‰Ÿ‚µ
 	card[0][0].id = Card::ID::SEVEN;
 	card[0][1].id = Card::ID::THREE;
@@ -225,10 +228,13 @@ bool Game::Initialize()
 
 		}
 	}
-
+	clear.pos = { 55,-40 };
+	nice.pos = { 0,0 };
 	cursor.pos = {90,10};
+	open = 0;
 	return true;
 }
+
 void Game::Update()
 {
 	key.Run();
@@ -244,12 +250,20 @@ void Game::Update()
 		{
 
 			card[y][x].Select(cursor,key);	
-			card[y][x].Pair();
-			
+			if (card[y][x].IsPair())
+			{
+				++open;
+				Isalpha = true;
+			}
+		
 		}
 	}
-
-
+	open;
+	if (open == 18)
+	{
+		clear.pos.y = clear.ease.QuadIn(clear.ease.Time(5), -40, 100, 5);
+	}
+	
 }
 void Game::Draw()
 {
@@ -263,8 +277,30 @@ void Game::Draw()
 			card[y][x].ShowCard();
 		}
 	}
-
+	
 	cursor.image.Draw(cursor.pos, GetColor(55, 225, 255));
+
+	for (int y = 0; y < 3; ++y)
+	{
+		for (int x = 0; x < 6; ++x)
+		{
+			
+		}
+	}
+	if (Isalpha)
+	{
+		a -= 5;
+		nice.image.Draw(nice.pos, GetColor(255, 225, 255, a));
+	}
+	if (a <= 0)
+	{
+		Isalpha = false;
+		a = 255;
+	}
+	if (open == 18)
+	{
+		clear.image.Draw(clear.pos);
+	}
 }
 void Game::Finalize()
 {

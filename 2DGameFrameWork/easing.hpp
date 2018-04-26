@@ -5,14 +5,21 @@ class Easing
 {
 private:
 	float cnt;
+	
 public:
-	Easing() { cnt = 0; };
+	bool isEnd;
+	Easing() { cnt = 0; isEnd = false; };
 	float Time(float duration)
 	{
 		if (cnt <= duration)
 		{
 			cnt += 0.1f;
 		}
+		else
+		{
+			isEnd = true;
+		}
+		
 		return cnt;
 	}
 	//t = 時間 d = 始点 c = 終点-始点 d = 経過時間

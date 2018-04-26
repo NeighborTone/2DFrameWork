@@ -48,7 +48,7 @@ struct Card : public GameObject
 	
 
 	void Select(Cursur&, KeyBoard);
-	void Pair();
+	bool IsPair();
 
 	void Init(int&, int&);
 	void ShowCard();
@@ -62,9 +62,12 @@ public:
 	
 	std::array<std::array<Card, 6>, 3> card;	//card[3][6]
 	Cursur cursor;
-	GameObject back;
+	GameObject back,nice,clear;
 	KeyBoard key;
-	
+	//alpha’l
+	bool Isalpha = false;
+	int a = 255;
+	int open;
 	bool Initialize() override;
 	void Update() override;
 	void Draw() override;
