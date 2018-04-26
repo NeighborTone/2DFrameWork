@@ -54,7 +54,7 @@ bool System::Create(std::string str ,HINSTANCE& hInstance, int& nCmdShow)
 	wcex.hInstance = hInstance;													//WinMain()のインスタンスハンドル
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);		//クライアント領域の背景色(デフォルト)
 	wcex.hCursor = LoadCursor(NULL, IDC_ARROW);					//事前定義されている矢印カーソル
-	wcex.hIcon = NULL;																//アイコン
+	wcex.hIcon = LoadIcon(hInstance, "MYICON");;						//アイコン
 	wcex.hIconSm = NULL;															//小さいアイコン
 	ins = hInstance;
 	if (!RegisterClassEx(&wcex)) 
