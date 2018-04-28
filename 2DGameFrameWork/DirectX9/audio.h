@@ -6,19 +6,21 @@ class SoundSource
 {
 private:
 
-	bool Submit();
+	bool Submit(int loopNum = XAUDIO2_LOOP_INFINITE);
 public:
 	SoundSource();
+	SoundSource(SoundSource&);
 	~SoundSource();
 	bool Load(const char* path);
-	void Play();
+	void PlayBGM(int loopNum = XAUDIO2_LOOP_INFINITE);
+	void PlaySE();
+	//一時停止
 	void Stop();
+	void Destroy();
 	//ソースヴォイス(ここに音源が格納される
 	IXAudio2SourceVoice* pSource;
 	//wavデータ
 	WAV					  wav;
-	IXAudio2SourceVoice* GetSource() { return pSource; }
-	WAV GetWav() { return wav; }
 };
 
 class SoundSystem
@@ -30,13 +32,13 @@ private:
 		static IXAudio2MasteringVoice* pMaster;
 
 		SoundSystem();
-		
+		SoundSystem(const SoundSystem&) = delete;	//コピー禁止
 public:
 	~SoundSystem();
 	
 	static SoundSystem* GetSystem();
 	bool Create();
 	bool AddSource(SoundSource& source);
-	void DeleteSystem(SoundSource& source);
+	void DestroySystem(SoundSource& source);
 };
 

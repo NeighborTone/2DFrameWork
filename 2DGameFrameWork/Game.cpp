@@ -15,6 +15,7 @@ bool  Card::flag2 = false;
 Card::ID Card::preId = Card::ID::NOT;
 Card::ID Card::nowId = Card::ID::NOT;
 
+
 void Cursur::Move(KeyBoard& key)
 {
 	
@@ -61,7 +62,7 @@ void Card::Init(int& x, int& y)
 	image.Load("image/cards.png");
 }
 
-void Card::Select(Cursur& c, KeyBoard key)
+bool Card::Select(Cursur& c, KeyBoard key)
 {
 	
 	if (pos == c.pos && key.Down(KeyBoard::Key::KEY_Z))
@@ -70,14 +71,16 @@ void Card::Select(Cursur& c, KeyBoard key)
 		{
 			state = Card::STATE::OPEN;
 			++Game::revCnt;
+			return true;
 		}
 		
 	}
 	if (Game::revCnt == 2 && key.Down(KeyBoard::Key::KEY_X) && state == Card::STATE::OPEN)
 	{
 		++Game::revCnt;
+		return true;
 	}
-	
+	return false;
 }
 
 bool Card::IsPair()
@@ -205,6 +208,8 @@ bool Game::Initialize()
 	clear.image.Load("image/clear.png");
 	ui.image.Load("image/zz.png");
 	ui2.image.Load("image/c.png");
+	openSound.Load("open.wav");
+	SoundSystem::GetSystem()->AddSource(openSound);
 	//‚²‚è‰Ÿ‚µ
 	card[0][0].id = Card::ID::SEVEN;
 	card[0][1].id = Card::ID::THREE;
@@ -260,7 +265,10 @@ void Game::Update()
 		for (int x = 0; x < 6; ++x)
 		{
 
-			card[y][x].Select(cursor,key);	
+			if (card[y][x].Select(cursor, key) && Game::revCnt < 3)
+			{
+				openSound.PlaySE();
+			}
 			if (card[y][x].IsPair())
 			{
 				++open;
@@ -333,6 +341,7 @@ void Game::Draw()
 }
 void Game::Finalize()
 {
+	openSound.~SoundSource();
 	cursor.image.~Image();
 	back.image.~Image();
 	nice.image.~Image();
@@ -348,6 +357,7 @@ void Game::Finalize()
 	}
 
 	//‰½ŒÌ‚©‰ð•ú‚³‚ê‚È‚¢
+	//openSound.Destroy();
 	//cursor.image.Destroy();
 	//back.image.Destroy();
 	//nice.image.Destroy();

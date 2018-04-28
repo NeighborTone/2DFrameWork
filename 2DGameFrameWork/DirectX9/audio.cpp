@@ -5,13 +5,14 @@ SoundSource::SoundSource()
 {
 	pSource = nullptr;
 }
+SoundSource::SoundSource(SoundSource& sound)
+{
+	pSource = sound.pSource;
+	wav = sound.wav;
+}
 SoundSource::~SoundSource()
 {
-	if (pSource != nullptr)
-	{
-		pSource->DestroyVoice();
-		pSource = nullptr;
-	}
+	Destroy();
 }
 bool SoundSource::Load(const char* path)
 {
@@ -24,15 +25,18 @@ bool SoundSource::Load(const char* path)
 	return true;
 }
 
-bool SoundSource::Submit()
+bool SoundSource::Submit(int loopNum)
 {
+		HRESULT hr;
 		XAUDIO2_BUFFER buf = { 0 };
 		buf.AudioBytes = wav.GetWaveSize();
 		buf.pAudioData = wav.GetWaveData();
 		buf.Flags = XAUDIO2_END_OF_STREAM;
-		buf.LoopCount = XAUDIO2_LOOP_INFINITE;	//無限ループ
-		HRESULT hr;
-		hr = pSource->SubmitSourceBuffer(&buf);	//Sourceに音源の情報を送る
+		buf.LoopCount = loopNum;	//ループ回数を指定。デフォルトで無限ループ
+		buf.LoopBegin = 0;
+		pSource->SetFrequencyRatio(1.0f);	//ピッチ
+		pSource->SetVolume(1.0f);				//ゲイン
+		hr = pSource->SubmitSourceBuffer(&buf,nullptr);	//Sourceに音源の情報を送る
 		if (FAILED(hr))
 		{
 			MessageBox(NULL, "音楽データの送信に失敗しました", "Error", MB_OK);
@@ -42,10 +46,29 @@ bool SoundSource::Submit()
 		return true;
 }
 
-void SoundSource::Play()
+void SoundSource::PlayBGM(int loopNum)
+{	
+	Submit(loopNum);
+	if (pSource)
+	{
+		pSource->Start();
+	}
+}
+void SoundSource::PlaySE()
 {
+	XAUDIO2_BUFFER buf = { 0 };
+	buf.AudioBytes = wav.GetWaveSize();
+	buf.pAudioData = wav.GetWaveData();
+	buf.Flags = XAUDIO2_END_OF_STREAM;
+	buf.LoopCount = 0;	//ループ回数を指定。
+	buf.LoopBegin = 0;
 
-	Submit();
+	pSource->SetFrequencyRatio(1.0f);	//ピッチ
+	pSource->SetVolume(1.0f);				//ゲイン
+	pSource->Stop(0);						//一旦停止
+	pSource->FlushSourceBuffers();		//ボイスキューを削除(再生位置を戻すため)
+	pSource->SubmitSourceBuffer(&buf, nullptr);	//Sourceに音源の情報を送る
+	
 	if (pSource)
 	{
 		pSource->Start();
@@ -54,12 +77,24 @@ void SoundSource::Play()
 
 void SoundSource::Stop()
 {
-	if (pSource)
+	XAUDIO2_VOICE_STATE xa2state;
+	pSource->GetState(&xa2state);
+	auto isPlay = xa2state.BuffersQueued;	//再生中なら0以外が返る
+	if (pSource && isPlay != 0)
 	{
 		pSource->Stop();
 	}
 }
 
+void SoundSource::Destroy()
+{
+	if (pSource != nullptr)
+	{
+		pSource->Stop(0);
+		pSource->DestroyVoice();
+		pSource = nullptr;
+	}
+}
 
 
 
@@ -70,7 +105,7 @@ SoundSystem::SoundSystem()
 
 }
 
-void SoundSystem::DeleteSystem(SoundSource& source)
+void SoundSystem::DestroySystem(SoundSource& source)
 {
 	//解放順は
 	//Source→Master→XAudio2

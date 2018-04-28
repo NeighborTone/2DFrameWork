@@ -4,6 +4,7 @@
 #include "Image.h"
 #include "Keyboard.h"
 #include "SceneManager.h"
+#include "DirectX9/audio.h"
 
 struct Cursur : public GameObject
 {
@@ -12,7 +13,7 @@ struct Cursur : public GameObject
 #define CURSOR_DOWN_MAX if(pos.y < 158)
 #define CURSOR_UP_MAX  if(pos.y > 10)
 	void Move(KeyBoard&);
-
+	
 };
 
 struct Card : public GameObject
@@ -46,8 +47,9 @@ struct Card : public GameObject
 	static bool flag;
 	static bool flag2;
 
+	
 
-	void Select(Cursur&, KeyBoard);
+	bool Select(Cursur&, KeyBoard);
 	bool IsPair();
 
 	void Init(int&, int&);
@@ -69,8 +71,9 @@ public:
 	std::array<std::array<Card, 6>, 3> card;	//card[3][6]
 	Cursur cursor;
 	GameObject back,nice,clear,ui,ui2;
+	SoundSource openSound;
 	KeyBoard key;
-
+	
 	//alpha’l
 	bool Isalpha;
 	static bool isui;

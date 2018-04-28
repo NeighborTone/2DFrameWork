@@ -3,7 +3,7 @@
 #include "GameObjcet.h"
 #include "Game.h"
 #include "Keyboard.h"
-
+#include "DirectX9\audio.h"
 
 
 class Title : public Scene
@@ -15,7 +15,7 @@ public:
 	void Finalize() override;
 
 	int a;
-
+	SoundSource sound;
 	GameObject logo_N,logo_B, back,button;
 	KeyBoard key;
 };

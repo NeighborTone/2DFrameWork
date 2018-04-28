@@ -16,7 +16,7 @@ namespace DX9
 			system->GetSystem()->Create();
 			sound.Load("Grass.wav");
 			system->GetSystem()->AddSource(sound);
-			sound.Play();
+			sound.PlayBGM();
 			scene->InsertScene(new Title);
 			return true;
 		}
@@ -60,7 +60,7 @@ namespace DX9
 	void DirectX::End()
 	{
 		scene->GetCurrentScene()->Finalize();
-		system->GetSystem()->DeleteSystem(sound);
+		system->GetSystem()->DestroySystem(sound);
 	}
 	
 }
