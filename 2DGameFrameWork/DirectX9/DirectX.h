@@ -19,10 +19,11 @@ namespace DX9
 		SoundSystem* system;
 		SoundSource sound;
 		 DirectX() {};
-		~DirectX();
+		 ~DirectX() {};
 		bool Init(System& win);
 		void Update();
 		void Draw();
+		void End();
 	};
 	
 }

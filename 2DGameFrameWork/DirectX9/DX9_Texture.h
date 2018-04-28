@@ -11,8 +11,9 @@ namespace DX9
 		D3DXIMAGE_INFO info;			//このオブジェクトに画像の情報が入る
 	public:
 		Texture();
-		~Texture();
+		virtual ~Texture();
 		bool Create(const std::string path);
+		void Destroy();
 
 		LPDIRECT3DTEXTURE9 Gettexture()
 		{

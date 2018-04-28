@@ -50,5 +50,15 @@ void Title::Draw()
 
 void Title::Finalize()
 {
+		
+	   back.image.~Image();
+	logo_N.image.~Image();
+	logo_B.image.~Image();
+	button.image.~Image();
 
+	//‰½ŒÌ‚©‰ğ•ú‚³‚ê‚È‚¢«
+	//back.image.Destroy();
+	//logo_N.image.Destroy();
+	//logo_B.image.Destroy();
+	//button.image.Destroy();
 }

@@ -252,11 +252,7 @@ bool Game::Initialize()
 void Game::Update()
 {
 	key.Run();
-	if (key.Down(KeyBoard::Key::KEY_E))
-	{
-		
-		SceneManeger::GetInstance()->ChangeScene(new Title);
-	}
+	
 	
 	cursor.Move(key);
 	for (int y = 0; y < 3; ++y)
@@ -279,7 +275,11 @@ void Game::Update()
 	{
 		clear.pos.y = clear.ease.QuadIn(clear.ease.Time(5), -40, 100, 5);
 	}
-	
+
+	if (key.Down(KeyBoard::Key::KEY_E))
+	{
+		SceneManeger::GetInstance()->ChangeScene(new Title);
+	}
 }
 void Game::Draw()
 {
@@ -333,6 +333,34 @@ void Game::Draw()
 }
 void Game::Finalize()
 {
-	
+	cursor.image.~Image();
+	back.image.~Image();
+	nice.image.~Image();
+	clear.image.~Image();
+	ui.image.~Image();
+	ui2.image.~Image();
+	for (int y = 0; y < 3; ++y)
+	{
+		for (int x = 0; x < 6; ++x)
+		{
+			card[y][x].image.~Image();
+		}
+	}
+
+	//‰½ŒÌ‚©‰ð•ú‚³‚ê‚È‚¢
+	//cursor.image.Destroy();
+	//back.image.Destroy();
+	//nice.image.Destroy();
+	//clear.image.Destroy();
+	//ui.image.Destroy();
+	//ui2.image.Destroy();
+	//for (int y = 0; y < 3; ++y)
+	//{
+	//	for (int x = 0; x < 6; ++x)
+	//	{
+	//		card[y][x].image.Destroy();
+	//	}
+	//}
+
 }
 

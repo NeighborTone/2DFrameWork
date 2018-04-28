@@ -41,5 +41,5 @@ void Mainloop::Run()
 	//	ShowCursor(false);	//マウス非表示
 	
 	}
-
+	directx.End();
 }

@@ -9,12 +9,13 @@ Image::Image()
 Image::~Image()
 {
 	
+	tex.Destroy();
 }
 
 void Image::Load(const char* path)
 {
-	tex.Create(path);
 	sprite.Create();
+	tex.Create(path);
 }
 
 void Image::Draw(float x, float y, DWORD color)
@@ -44,4 +45,9 @@ void Image::DrawRota(float x, float y, float degree, MyClass::Box src, MyClass::
 void Image::DrawRota(D3DXVECTOR2 pos, float degree ,MyClass::Box src, MyClass::Box draw, DWORD color)
 {
 	sprite.Draw(pos, draw.ToRECT(), src.ToRECT(), tex.Gettexture(), degree, D3DXVECTOR2(draw.OffSet(pos)), color);
+}
+
+void Image::Destroy()
+{
+	tex.Destroy();
 }

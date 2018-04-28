@@ -15,5 +15,5 @@ public:
 		draw = { 0,0,0,0 };
 		pos = { 0,0 };
 	};
-	~GameObject() {};
+	virtual ~GameObject() {};
  };

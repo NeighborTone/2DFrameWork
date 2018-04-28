@@ -12,6 +12,7 @@ struct Cursur : public GameObject
 #define CURSOR_DOWN_MAX if(pos.y < 158)
 #define CURSOR_UP_MAX  if(pos.y > 10)
 	void Move(KeyBoard&);
+
 };
 
 struct Card : public GameObject
@@ -44,7 +45,7 @@ struct Card : public GameObject
 	static ID nowId;
 	static bool flag;
 	static bool flag2;
-	
+
 
 	void Select(Cursur&, KeyBoard);
 	bool IsPair();
@@ -56,6 +57,11 @@ struct Card : public GameObject
 class Game : public Scene
 {
 public:
+	bool Initialize() override;
+	void Update() override;
+	void Draw() override;
+	void Finalize() override;
+
 	static const int CARDSIZE_H = 64;
 	static const int CARDSIZE_W = 32;
 	static int revCnt;
@@ -70,9 +76,6 @@ public:
 	static bool isui;
 	int a;
 	int open;
-	bool Initialize() override;
-	void Update() override;
-	void Draw() override;
-	void Finalize() override;
+	
 };
 

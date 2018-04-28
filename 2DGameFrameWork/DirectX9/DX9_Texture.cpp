@@ -7,10 +7,7 @@ namespace DX9
 	}
 	Texture::~Texture()
 	{
-		if (p_tex != nullptr)
-		{
-			p_tex->Release();
-		}
+		Destroy();
 	}
 	bool Texture::Create(const std::string path)
 	{
@@ -40,5 +37,11 @@ namespace DX9
 
 	}
 
-
+	void Texture::Destroy() {
+		if (p_tex != nullptr)
+		{
+			p_tex->Release();
+			p_tex = nullptr;
+		}
+	}
 }

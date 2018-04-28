@@ -10,7 +10,7 @@ private:
 	DX9::Sprite sprite;
 	DX9::Texture tex;
 public:
-	//(中心点(x,y)描画範囲(w,h))
+	//drawは(中心点(x,y)描画範囲(w,h))で指定
 	Image();
 	~Image();
 	void Load(const char* path);
@@ -20,5 +20,8 @@ public:
 	void Draw(D3DXVECTOR2 pos, MyClass::Box src, MyClass::Box draw, DWORD color = MyClass::GetColor(255, 255, 255));
 	void DrawRota(float x, float y, float degree, MyClass::Box src, MyClass::Box draw, DWORD color = MyClass::GetColor(255, 255, 255));
 	void DrawRota(D3DXVECTOR2 pos, float degree, MyClass::Box src, MyClass::Box draw, DWORD color = MyClass::GetColor(255, 255, 255));
+
+	//画像の解放処理
+	void Destroy();
 };
 
