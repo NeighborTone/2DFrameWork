@@ -3,8 +3,7 @@ using namespace std;
 
 WAV::WAV()
 {
-	mmio = 0;
-	SecureZeroMemory(&mmioInfo, sizeof(mmioInfo));
+	mmio = NULL;
 	SecureZeroMemory(&fmt, sizeof(fmt));
 	wavData.clear();
 }
@@ -19,14 +18,7 @@ bool WAV::Open(const std::string &path)
 	name = path;
 
 	//ファイル名のコピー(mmioOpenに渡す)
-	vector<char> name(path.begin(), path.end());
-	name.push_back('\0');
-
-	char* str = const_cast<char*>(path.c_str());
-	
-	SecureZeroMemory(&mmioInfo, sizeof(mmioInfo));
-
-	mmio = mmioOpen(&name[0], &mmioInfo, MMIO_READ);
+	mmio = mmioOpen(&name[0], NULL, MMIO_READ);
 
 	if (!mmio)
 	{
@@ -39,7 +31,7 @@ bool WAV::Open(const std::string &path)
 
 bool WAV::Close()
 {
-	if (mmioClose(mmio, 0) == MMIOERR_CANNOTWRITE)
+	if (mmioClose(mmio, MMIO_FHOPEN) == MMIOERR_CANNOTWRITE)
 	{
 		return false;
 	}
@@ -102,7 +94,9 @@ bool WAV::ReadToWaveData()
 	//WAVEデータ用にリサイズ
 	wavData.resize(data.cksize);
 
-	if (mmioRead(mmio, reinterpret_cast<HPSTR>(&wavData[0]), data.cksize) != data.cksize)
+	if (mmioRead(
+		mmio,
+		reinterpret_cast<HPSTR>(&wavData[0]), data.cksize) != data.cksize)
 	{
 		MessageBox(NULL, "読み込んだwavのデータサイズが異なります", "Error", MB_OK);
 		return false;

@@ -1,5 +1,4 @@
 #pragma once
-#include "DirectX9\DX9_Font.h"
 #include <array>
 #include "GameObjcet.h"
 #include "Image.h"
@@ -65,6 +64,7 @@ public:
 	Cursur cursor;
 	GameObject back,nice,clear,ui,ui2;
 	KeyBoard key;
+
 	//alpha’l
 	bool Isalpha;
 	static bool isui;

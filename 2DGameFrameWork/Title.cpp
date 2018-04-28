@@ -7,6 +7,9 @@ bool Title::Initialize()
 	logo_N.image.Load("image/Nervous.png");
 	logo_B.image.Load("image/Breakdown.png");
 	button.image.Load("image/z.png");
+
+	
+
 	logo_N.pos = { -270,0 };
 	logo_B.pos = { 500,80 };
 	button.pos = { 60,170 };
@@ -29,6 +32,7 @@ void Title::Update()
 	}
 	if (key.Down(KeyBoard::Key::KEY_Z) && a >= 200)
 	{
+		
 		SceneManeger::GetInstance()->ChangeScene(new Game);
 	}
 }

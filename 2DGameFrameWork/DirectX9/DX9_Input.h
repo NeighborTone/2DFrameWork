@@ -19,7 +19,7 @@ namespace DX9
 	public:
 	
 		Input();
-		~Input();
+		 ~Input();
 		bool CreateInput(const HWND& hwnd);
 		void UpDate();
 		//‰Ÿ‚µ‚½
@@ -68,7 +68,7 @@ namespace DX9
 
 	public:
 		PadInput();
-		~PadInput();
+		 ~PadInput();
 
 		void CreatePadInput(const HWND& hwnd);
 		void UpDate();

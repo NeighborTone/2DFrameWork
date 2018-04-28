@@ -8,7 +8,7 @@ Image::Image()
 
 Image::~Image()
 {
-
+	
 }
 
 void Image::Load(const char* path)

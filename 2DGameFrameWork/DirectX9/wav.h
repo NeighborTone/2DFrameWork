@@ -9,7 +9,6 @@ class WAV
 {
 private:
 	HMMIO						mmio;			// MMIO ハンドル
-	MMIOINFO					mmioInfo;	// MMIO 情報構造体
 	MMCKINFO					riff;			// RIFF チャンク
 	MMCKINFO					fmt;			// FMT チャンク
 	MMCKINFO					data;			// DATA チャンク

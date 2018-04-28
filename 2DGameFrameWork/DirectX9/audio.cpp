@@ -1,19 +1,124 @@
 #include "audio.h"
 
 
-IXAudio2* Audio::pAudio = nullptr;
-IXAudio2MasteringVoice* Audio::pMaster = nullptr;
-Audio::Audio()
+SoundSource::SoundSource()
 {
-	SecureZeroMemory(&wavFmt, sizeof(wavFmt));
+	pSource = nullptr;
+}
+SoundSource::~SoundSource()
+{
+	if (pSource != nullptr)
+	{
+		pSource->DestroyVoice();
+		pSource = nullptr;
+	}
+}
+bool SoundSource::Load(const char* path)
+{
+	if (!wav.Load(path))
+	{
+		MessageBox(NULL, "ソースボイスの作成に失敗しました", "Error", MB_OK);
+		return false;
+	}
+
+	return true;
 }
 
-Audio::~Audio()
+bool SoundSource::Submit()
 {
-	Exit();
+		XAUDIO2_BUFFER buf = { 0 };
+		buf.AudioBytes = wav.GetWaveSize();
+		buf.pAudioData = wav.GetWaveData();
+		buf.Flags = XAUDIO2_END_OF_STREAM;
+		buf.LoopCount = XAUDIO2_LOOP_INFINITE;	//無限ループ
+		HRESULT hr;
+		hr = pSource->SubmitSourceBuffer(&buf);	//Sourceに音源の情報を送る
+		if (FAILED(hr))
+		{
+			MessageBox(NULL, "音楽データの送信に失敗しました", "Error", MB_OK);
+			return false;
+		}
+	
+		return true;
 }
 
-bool Audio::Load()
+void SoundSource::Play()
+{
+
+	Submit();
+	if (pSource)
+	{
+		pSource->Start();
+	}
+}
+
+void SoundSource::Stop()
+{
+	if (pSource)
+	{
+		pSource->Stop();
+	}
+}
+
+
+
+
+IXAudio2* SoundSystem::pXAudio2 = nullptr;
+IXAudio2MasteringVoice* SoundSystem::pMaster = nullptr;
+SoundSystem::SoundSystem()
+{
+
+}
+
+void SoundSystem::DeleteSystem(SoundSource& source)
+{
+	//解放順は
+	//Source→Master→XAudio2
+	if (source.pSource != nullptr)
+	{
+		source.pSource->Stop(0);
+		source.pSource->DestroyVoice();
+		source.pSource = nullptr;
+	}
+	
+	//マスターボイス破棄
+	if (pMaster != nullptr)
+	{
+		pMaster->DestroyVoice();
+		pMaster = nullptr;
+	}
+	//XAudi2破棄
+	if (pXAudio2 != nullptr)
+	{
+		pXAudio2->Release();
+		pXAudio2 = nullptr;
+	}
+	CoUninitialize();
+}
+SoundSystem::~SoundSystem()
+{
+	//マスターボイス破棄
+	if (pMaster != nullptr)
+	{
+		pMaster->DestroyVoice();
+		pMaster = nullptr;
+	}
+	//XAudi2破棄
+	if (pXAudio2 != nullptr)
+	{
+		pXAudio2->Release();
+		pXAudio2 = nullptr;
+	}
+	CoUninitialize();
+}
+
+SoundSystem* SoundSystem::GetSystem()
+{
+	static SoundSystem inst;
+	return &inst;
+}
+
+bool SoundSystem::Create()
 {
 	HRESULT hr;
 	//COMの初期化
@@ -23,174 +128,40 @@ bool Audio::Load()
 		MessageBox(NULL, "XAudio2COMの初期化に失敗しました", "Error", MB_OK);
 		return false;
 	}
-
-	/*hr = CoInitializeEx(NULL, COINIT_MULTITHREADED);
-	
+	//XAudio2の初期化
+	hr = XAudio2Create(&pXAudio2, 0);
 	if (FAILED(hr))
 	{
-		MessageBox(NULL, "XAudio2COMの初期化に失敗しました", "Error", MB_OK);
-		return false;
-	}*/
-
-	//XAudio2インターフェイスの作成
-	if (!CreateXAudio2())
-	{
+		MessageBox(NULL, "XAudio2の初期化に失敗しました", "Error", MB_OK);
 		return false;
 	}
-
-	//マスターボイスの作成
-	if (!CreateMaster())
-	{
-		return false;
-	}
-
-	//wav読み込み
-	if (!LoadWav("Grass.wav"))
-	{
-		return false;
-	}
-
-	return true;
-}
-
-bool Audio::LoadWav(const std::string &path)
-{
-	//WAVクラスを介してロード
-	if (!wav.Load(path))
-	{
-		return false;
-	}
-	//ソースボイスの作成
-	if (!CreateSorce())
-	{
-		return false;
-	}
-
-	//読み込んだデータをキューに送信
-	Submit();
-
-	return true;
-}
-
-bool Audio::CreateXAudio2()
-{
-	UINT wFlag = 0;
-#ifndef NDEBUG
-	wFlag |= XAUDIO2_DEBUG_ENGINE;
-#endif
-
-	HRESULT hr;
-	hr = XAudio2Create(&pAudio, wFlag);
+	//マスターボイスの生成
+	hr = pXAudio2->CreateMasteringVoice(
+		&pMaster, 
+		XAUDIO2_DEFAULT_CHANNELS,
+		XAUDIO2_DEFAULT_SAMPLERATE,
+		0,
+		0,
+		NULL);
 	if (FAILED(hr))
 	{
-		MessageBox(NULL, "XAudio2インターフェースの取得に失敗しました", "Error", MB_OK);
+		MessageBox(NULL, "マスターボイスの初期化に失敗しました", "Error", MB_OK);
+		return false;
 	}
 
 	return true;
 }
 
-bool Audio::CreateMaster()
+bool SoundSystem::AddSource(SoundSource& source)
 {
 	HRESULT hr;
-	hr = pAudio->CreateMasteringVoice(&pMaster);
+	hr = pXAudio2->CreateSourceVoice(
+		&source.pSource,
+		&source.wav.GetWaveFmtEx());
 	if (FAILED(hr))
 	{
-		MessageBox(NULL, "マスタリングヴォイスの作成に失敗しました", "Error", MB_OK);
-	}
-
-	return true;
-}
-
-bool Audio::CreateSorce()
-{
-	HRESULT hr;
-	hr = pAudio->CreateSourceVoice(
-		&pSource, 
-		&wav.GetWaveFmtEx());
-	if (FAILED(hr))
-	{
-		MessageBox(NULL, "ソースボイスの作成に失敗しました", "Error", MB_OK);
+		MessageBox(NULL, "ソースボイスの追加に失敗しました", "Error", MB_OK);
 		return false;
 	}
 	return true;
-}
-
-bool Audio::Submit()
-{
-	XAUDIO2_BUFFER buf = { 0 };
-	buf.AudioBytes = wav.GetWaveSize();
-	buf.pAudioData = wav.GetWaveData();
-	buf.Flags = XAUDIO2_END_OF_STREAM;
-	buf.LoopCount = XAUDIO2_LOOP_INFINITE;	//無限ループ
-	HRESULT hr;
-	hr = pSource->SubmitSourceBuffer(&buf);
-	if (FAILED(hr))
-	{
-		MessageBox(NULL, "音楽データの送信に失敗しました", "Error", MB_OK);
-		return false;
-	}
-
-	return true;
-}
-
-void Audio::Exit()
-{
-	/*解放順は変えないように*/
-
-	//ソースボイスの破棄
-	if (pSource)
-	{
-		pSource->Stop(0);
-		pSource->DestroyVoice();
-		pSource = nullptr;
-	}
-
-	//マスタリングボイスの破棄
-	if (pMaster)
-	{
-		pMaster->DestroyVoice();
-		pMaster = nullptr;
-	}
-
-	pAudio->Release();	//XAudio2インターフェイスの破棄
-	pAudio = nullptr;
-	CoUninitialize();
-}
-
-void Audio::Play()
-{
-	if (pSource)
-	{
-		pSource->Start(0);
-	}
-}
-
-void Audio::Stop()
-{
-	if (pSource)
-	{
-		pSource->Stop(0);
-	}
-}
-
-void Audio::Pause()
-{
-
-}
-
-void Audio::SetGain(float gain)
-{
-
-}
-
-float Audio::GetGain()const
-{
-	//仮
-	return 1.0f;
-}
-
-Audio* Audio::GetInst()
-{
-	static Audio inst;
-	return &inst;
 }

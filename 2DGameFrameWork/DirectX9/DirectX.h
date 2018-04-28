@@ -7,6 +7,7 @@
 #include "DX9_Input.h"
 #include "../System.h"
 #include "../Title.h"
+#include "audio.h"
 namespace DX9
 {
 	class DirectX
@@ -15,10 +16,10 @@ namespace DX9
 		
 	public: 
 		SceneManeger* scene;
-		DX9::Font font;
-	
+		SoundSystem* system;
+		SoundSource sound;
 		 DirectX() {};
-		~DirectX() {};
+		~DirectX();
 		bool Init(System& win);
 		void Update();
 		void Draw();

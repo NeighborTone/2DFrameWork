@@ -254,6 +254,7 @@ void Game::Update()
 	key.Run();
 	if (key.Down(KeyBoard::Key::KEY_E))
 	{
+		
 		SceneManeger::GetInstance()->ChangeScene(new Title);
 	}
 	

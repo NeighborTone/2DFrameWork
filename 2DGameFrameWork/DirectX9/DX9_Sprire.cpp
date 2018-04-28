@@ -2,6 +2,7 @@
 
 namespace DX9
 {
+
 	Sprite::Sprite()
 	{
 		pSprite = nullptr;

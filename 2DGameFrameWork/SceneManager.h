@@ -11,18 +11,19 @@ protected:
 private:
 	static void DestroyThis()
 	{
+		if(!instance)
 		delete instance;		//シーンのメモリを解放
 	}
 public:
 	explicit SceneManeger() {}
-	virtual ~SceneManeger() {}
+	~SceneManeger() {  }
 
 	static SceneManeger* GetInstance()
 	{
 		if (!instance)
 		{
 			instance = new SceneManeger();		//インスタンスが空なら新しいシーンを登録
-			atexit(DestroyThis);				//プログラムが終了するときに実行される
+			atexit(DestroyThis);							//プログラムが終了するときに実行される
 		}
 		return instance;
 	}
