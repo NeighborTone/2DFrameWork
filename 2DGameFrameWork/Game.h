@@ -44,8 +44,8 @@ struct Card : public GameObject
 	ID id;
 	static ID preId;
 	static ID nowId;
-	static bool flag;
-	static bool flag2;
+	static bool isFirstOpen;
+	static bool isSecondOpen;
 
 	
 

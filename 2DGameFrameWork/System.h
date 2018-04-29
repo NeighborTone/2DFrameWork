@@ -3,7 +3,7 @@
 #include <tchar.h>
 #include <string>
 //ウィンドウ関連の処理を行う
-class System
+class System final
 {
 private:
 	HWND handle;
@@ -11,6 +11,7 @@ private:
 	UINT SCREEN_H;
 public:
 	System();
+	System(const System&) = delete;
 	~System();
 	void SetWindowSize(UINT w = 640, UINT h = 480);				//画面サイズ指定
 	bool Create(std::string str , HINSTANCE& hInstance, int& nCmdShow);		//ウィンドウ生成

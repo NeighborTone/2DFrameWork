@@ -10,15 +10,17 @@
 #include "audio.h"
 namespace DX9
 {
-	class DirectX
+	class DirectX final
 	{
 	private:
 		
 	public: 
+		Direct3D* direct3D;
 		SceneManeger* scene;
 		SoundSystem* system;
 		SoundSource sound;
 		 DirectX() {};
+		 DirectX(const DirectX&) = delete;
 		 ~DirectX() {};
 		bool Init(System& win);
 		void Update();

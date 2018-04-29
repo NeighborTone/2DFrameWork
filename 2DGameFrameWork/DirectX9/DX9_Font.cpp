@@ -30,7 +30,7 @@ namespace DX9
 		//DirectXƒtƒHƒ“ƒgŽæ“¾
 		HRESULT hr;
 		if (hr = FAILED(D3DXCreateFont(
-			direct3d.p_d3dDevice,
+			Direct3D::GetInst()->GetDevice(),
 			FontHeight,
 			LogFont.lfWidth,
 			LogFont.lfWeight,

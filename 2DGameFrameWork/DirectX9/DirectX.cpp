@@ -7,7 +7,8 @@ namespace DX9
 {
 	bool DirectX::Init(System& win)
 	{
-		if (direct3d.Create(win))
+		
+		if (direct3D->GetInst()->Create(win))
 		{
 			in.CreateInput(win.GetWindow());
 			pad.CreatePadInput(win.GetWindow());
@@ -16,7 +17,8 @@ namespace DX9
 			system->GetSystem()->Create();
 			sound.Load("Grass.wav");
 			system->GetSystem()->AddSource(sound);
-			sound.PlayBGM();
+			sound.PlayBGM(255,0.5f);
+			//
 			scene->InsertScene(new Title);
 			return true;
 		}
@@ -32,10 +34,10 @@ namespace DX9
 	void DirectX::Draw()
 	{
 		//•`‰æŠJŽn
-		if (SUCCEEDED(direct3d.p_d3dDevice->BeginScene()))
+		if (SUCCEEDED(direct3D->GetInst()->GetDevice()->BeginScene()))
 		{
 			//”wŒiƒNƒŠƒA
-			direct3d.p_d3dDevice->Clear(
+			direct3D->GetInst()->GetDevice()->Clear(
 				0,
 				NULL,
 				D3DCLEAR_TARGET | D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER,
@@ -47,14 +49,14 @@ namespace DX9
 			scene->GetCurrentScene()->Draw();
 
 			//•`‰æI—¹
-			direct3d.p_d3dDevice->EndScene();
+			direct3D->GetInst()->GetDevice()->EndScene();
 		}
 		else
 		{
 			MessageBox(NULL, "•`‰æ‚ÉŽ¸”s‚µ‚Ü‚µ‚½", "Error", MB_OK);
 		}
 		//•`‰æ”½‰f
-		direct3d.p_d3dDevice->Present(NULL, NULL, NULL, NULL);
+		direct3D->GetInst()->GetDevice()->Present(NULL, NULL, NULL, NULL);
 	}
 
 	void DirectX::End()

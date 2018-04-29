@@ -8,20 +8,20 @@
 
 namespace DX9
 {
-	//Direct3Dデバイス管理部
-	class Direct3D
+	//Direct3Dデバイス管理部。シングルトン
+	class Direct3D final
 	{
-	public:
-		IDirect3D9*			  p_d3d;
-		IDirect3DDevice9* p_d3dDevice;
-	
+	private:
 		Direct3D();
+		static IDirect3D9* p_d3d;
+		static IDirect3DDevice9* p_d3dDevice;
+	public:
+	
 		~Direct3D();
 		//デバイス生成
 		bool Create(System& win);
-		IDirect3DDevice9* Get(){return p_d3dDevice;}
+		IDirect3DDevice9* GetDevice();
+		static Direct3D* GetInst();
 	};
 
-	extern Direct3D direct3d;	//デバイスは他の機能を使う時にも使うのでグローバル(一つあればよい)
-	
 }

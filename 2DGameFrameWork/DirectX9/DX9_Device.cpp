@@ -1,15 +1,16 @@
 #include "DX9_Device.h"
-//グローバルな変数があるので、名前空間に入れる(usingはダメ)
+
 namespace DX9
 {
-	//global------------------------------------
-	Direct3D direct3d;
+	//static------------------------------------
+	IDirect3DDevice9* Direct3D::p_d3dDevice = nullptr;
+	IDirect3D9* Direct3D::p_d3d = nullptr;
 	//------------------------------------------
 
 	Direct3D::Direct3D()
 	{
-		p_d3d = nullptr;
-		p_d3dDevice = nullptr;
+		
+		
 	}
 
 	Direct3D::~Direct3D()
@@ -22,6 +23,17 @@ namespace DX9
 		{
 			p_d3dDevice->Release();
 		}
+	}
+
+	IDirect3DDevice9* Direct3D::GetDevice()
+	{
+		return p_d3dDevice;
+	}
+
+	Direct3D* Direct3D::GetInst()
+	{
+		static Direct3D inst;
+		return &inst;
 	}
 
 	bool Direct3D::Create(System& win)

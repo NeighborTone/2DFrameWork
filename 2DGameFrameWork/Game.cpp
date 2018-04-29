@@ -10,8 +10,8 @@ using namespace MyClass;
 
 int Game::revCnt = 0;
 bool Game::isui = false;
-bool  Card::flag = false;
-bool  Card::flag2 = false;
+bool Card::isFirstOpen = false;
+bool Card::isSecondOpen = false;
 Card::ID Card::preId = Card::ID::NOT;
 Card::ID Card::nowId = Card::ID::NOT;
 
@@ -96,17 +96,17 @@ bool Card::IsPair()
 	if (Game::revCnt == 0 && state == Card::STATE::OPEN)
 	{
 		state = Card::STATE::CLOSE;
-		flag = false;
-		flag2 = false;
+		isFirstOpen = false;
+		isSecondOpen = false;
 	}
-	if (Game::revCnt == 1 && flag == false)
+	if (Game::revCnt == 1 && isFirstOpen == false)
 	{
-		flag = true;
+		isFirstOpen = true;
 		preId = id;
 	}
-	if (Game::revCnt == 2 && flag2 == false)
+	if (Game::revCnt == 2 && isSecondOpen == false)
 	{
-		flag2 = true;
+		isSecondOpen = true;
 		nowId = id;
 	}
 	if (Game::revCnt == 2 && state == Card::STATE::OPEN && preId == nowId)
@@ -373,4 +373,3 @@ void Game::Finalize()
 	//}
 
 }
-

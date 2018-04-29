@@ -14,7 +14,7 @@ namespace DX9
 		// ‰æ‘œ“Ç‚Ýž‚Ý
 		D3DXGetImageInfoFromFile(path.c_str(), &info);
 		if (FAILED(D3DXCreateTextureFromFileEx(
-			direct3d.p_d3dDevice,
+			Direct3D::GetInst()->GetDevice(),
 			path.c_str(),
 			info.Width, info.Height,
 			NULL,

@@ -5,15 +5,18 @@ SoundSource::SoundSource()
 {
 	pSource = nullptr;
 }
+
 SoundSource::SoundSource(SoundSource& sound)
 {
 	pSource = sound.pSource;
 	wav = sound.wav;
 }
+
 SoundSource::~SoundSource()
 {
 	Destroy();
 }
+
 bool SoundSource::Load(const char* path)
 {
 	if (!wav.Load(path))
@@ -25,36 +28,30 @@ bool SoundSource::Load(const char* path)
 	return true;
 }
 
-bool SoundSource::Submit(int loopNum)
-{
-		HRESULT hr;
-		XAUDIO2_BUFFER buf = { 0 };
-		buf.AudioBytes = wav.GetWaveSize();
-		buf.pAudioData = wav.GetWaveData();
-		buf.Flags = XAUDIO2_END_OF_STREAM;
-		buf.LoopCount = loopNum;	//ループ回数を指定。デフォルトで無限ループ
-		buf.LoopBegin = 0;
-		pSource->SetFrequencyRatio(1.0f);	//ピッチ
-		pSource->SetVolume(1.0f);				//ゲイン
-		hr = pSource->SubmitSourceBuffer(&buf,nullptr);	//Sourceに音源の情報を送る
-		if (FAILED(hr))
-		{
-			MessageBox(NULL, "音楽データの送信に失敗しました", "Error", MB_OK);
-			return false;
-		}
-	
-		return true;
-}
-
-void SoundSource::PlayBGM(int loopNum)
+void SoundSource::PlayBGM(int loopNum,float gain, float pitch)
 {	
-	Submit(loopNum);
+	HRESULT hr;
+	XAUDIO2_BUFFER buf = { 0 };
+	buf.AudioBytes = wav.GetWaveSize();
+	buf.pAudioData = wav.GetWaveData();
+	buf.Flags = XAUDIO2_END_OF_STREAM;	//このバッファの後にデータがないことをソースボイスに伝える
+	buf.LoopCount = loopNum;	//ループ回数を指定。デフォルトで無限ループ
+	buf.LoopBegin = 0;
+	pSource->SetFrequencyRatio(pitch);	//ピッチ
+	pSource->SetVolume(gain);					//ゲイン
+	hr = pSource->SubmitSourceBuffer(&buf, nullptr);	//Sourceに音源の情報を送る
+	if (FAILED(hr))
+	{
+		MessageBox(NULL, "音楽データの送信に失敗しました", "Error", MB_OK);
+	}
+
 	if (pSource)
 	{
 		pSource->Start();
 	}
 }
-void SoundSource::PlaySE()
+
+void SoundSource::PlaySE(float gain, float pitch)
 {
 	XAUDIO2_BUFFER buf = { 0 };
 	buf.AudioBytes = wav.GetWaveSize();
@@ -63,10 +60,10 @@ void SoundSource::PlaySE()
 	buf.LoopCount = 0;	//ループ回数を指定。
 	buf.LoopBegin = 0;
 
-	pSource->SetFrequencyRatio(1.0f);	//ピッチ
-	pSource->SetVolume(1.0f);				//ゲイン
-	pSource->Stop(0);						//一旦停止
-	pSource->FlushSourceBuffers();		//ボイスキューを削除(再生位置を戻すため)
+	pSource->SetFrequencyRatio(pitch);	//ピッチ
+	pSource->SetVolume(gain);					//ゲイン
+	pSource->Stop(0);							//一旦停止
+	pSource->FlushSourceBuffers();			//ボイスキューを削除(再生位置を戻すため)
 	pSource->SubmitSourceBuffer(&buf, nullptr);	//Sourceに音源の情報を送る
 	
 	if (pSource)
@@ -98,8 +95,13 @@ void SoundSource::Destroy()
 
 
 
+
+
+
+//static------------------------------------------------
 IXAudio2* SoundSystem::pXAudio2 = nullptr;
 IXAudio2MasteringVoice* SoundSystem::pMaster = nullptr;
+//------------------------------------------------------
 SoundSystem::SoundSystem()
 {
 
@@ -130,6 +132,7 @@ void SoundSystem::DestroySystem(SoundSource& source)
 	}
 	CoUninitialize();
 }
+
 SoundSystem::~SoundSystem()
 {
 	//マスターボイス破棄

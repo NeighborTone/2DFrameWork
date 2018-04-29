@@ -18,7 +18,8 @@ namespace DX9
 	}
 	bool Sprite::Create()
 	{
-		if (FAILED(D3DXCreateSprite(direct3d.p_d3dDevice, &pSprite)))
+		auto pDevice = Direct3D::GetInst();
+		if (FAILED(D3DXCreateSprite(pDevice->GetDevice(), &pSprite)))
 		{
 			MessageBox(NULL, "スプライトの生成に失敗しました", "Error", MB_OK);
 			return false;
