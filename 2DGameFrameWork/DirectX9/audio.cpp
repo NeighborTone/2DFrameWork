@@ -31,7 +31,7 @@ bool SoundSource::Load(const char* path)
 void SoundSource::PlayBGM(int loopNum,float gain, float pitch)
 {	
 	HRESULT hr;
-	XAUDIO2_BUFFER buf = { 0 };
+	buf = { 0 };
 	buf.AudioBytes = wav.GetWaveSize();
 	buf.pAudioData = wav.GetWaveData();
 	buf.Flags = XAUDIO2_END_OF_STREAM;	//このバッファの後にデータがないことをソースボイスに伝える
@@ -53,13 +53,14 @@ void SoundSource::PlayBGM(int loopNum,float gain, float pitch)
 
 void SoundSource::PlaySE(float gain, float pitch)
 {
-	XAUDIO2_BUFFER buf = { 0 };
+	buf = { 0 };
 	buf.AudioBytes = wav.GetWaveSize();
 	buf.pAudioData = wav.GetWaveData();
 	buf.Flags = XAUDIO2_END_OF_STREAM;
 	buf.LoopCount = 0;	//ループ回数を指定。
 	buf.LoopBegin = 0;
 
+	
 	pSource->SetFrequencyRatio(pitch);	//ピッチ
 	pSource->SetVolume(gain);					//ゲイン
 	pSource->Stop(0);							//一旦停止
@@ -72,17 +73,26 @@ void SoundSource::PlaySE(float gain, float pitch)
 	}
 }
 
-void SoundSource::Stop()
+void SoundSource::Pause()
 {
 	XAUDIO2_VOICE_STATE xa2state;
 	pSource->GetState(&xa2state);
 	auto isPlay = xa2state.BuffersQueued;	//再生中なら0以外が返る
 	if (pSource && isPlay != 0)
 	{
-		pSource->Stop();
+		pSource->Stop(0);
 	}
 }
-
+void SoundSource::Stop()
+{
+	if (pSource)
+	{
+		pSource->Stop(0);							//一旦停止
+		pSource->FlushSourceBuffers();			//ボイスキューを削除(再生位置を戻すため)
+		pSource->SubmitSourceBuffer(&buf, nullptr);	//Sourceに音源の情報を送る
+	}
+	
+}
 void SoundSource::Destroy()
 {
 	if (pSource != nullptr)
@@ -104,7 +114,7 @@ IXAudio2MasteringVoice* SoundSystem::pMaster = nullptr;
 //------------------------------------------------------
 SoundSystem::SoundSystem()
 {
-
+	
 }
 
 void SoundSystem::DestroySystem(SoundSource& source)
@@ -189,7 +199,10 @@ bool SoundSystem::Create()
 
 	return true;
 }
-
+void SoundSystem::SetMasterGain(float gain)
+{
+	pMaster->SetVolume(gain);
+}
 bool SoundSystem::AddSource(SoundSource& source)
 {
 	HRESULT hr;

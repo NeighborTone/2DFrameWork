@@ -17,6 +17,7 @@ namespace DX9
 			system->GetSystem()->Create();
 			sound.Load("Grass.wav");
 			system->GetSystem()->AddSource(sound);
+			system->SetMasterGain(1.0f);
 			sound.PlayBGM(255,0.5f);
 			//
 			scene->InsertScene(new Title);
@@ -28,6 +29,14 @@ namespace DX9
 	void DirectX::Update()
 	{
 	
+	/*	if (GetKeyState(VK_RETURN) & 0x8000)
+		{
+			sound.Stop();
+		}
+		if (GetKeyState(VK_LSHIFT) & 0x8000)
+		{
+			sound.PlayBGM();
+		}*/
 		scene->GetCurrentScene()->Update();
 	}
 
