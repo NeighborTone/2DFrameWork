@@ -71,6 +71,7 @@ namespace DX9
 	void DirectX::End()
 	{
 		scene->GetCurrentScene()->Finalize();
+		delete scene->GetCurrentScene();
 		system->GetSystem()->DestroySystem(sound);
 	}
 	

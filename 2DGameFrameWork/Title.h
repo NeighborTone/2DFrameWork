@@ -13,7 +13,6 @@ public:
 	void Update() override;
 	void Draw() override;
 	void Finalize() override;
-
 	int a;
 	SoundSource sound;
 	GameObject logo_N,logo_B, back,button;

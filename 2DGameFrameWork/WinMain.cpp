@@ -15,7 +15,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdPa
 {
 	// ÉÅÉÇÉäÉäÅ[ÉNåüèo
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF | _CRTDBG_CHECK_ALWAYS_DF);
-	
+	//_CrtSetBreakAlloc(167);
 	Mainloop main;
 	if (main.Init(hInstance, nCmdShow))
 	{

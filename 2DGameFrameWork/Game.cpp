@@ -341,35 +341,5 @@ void Game::Draw()
 }
 void Game::Finalize()
 {
-	openSound.~SoundSource();
-	cursor.image.~Image();
-	back.image.~Image();
-	nice.image.~Image();
-	clear.image.~Image();
-	ui.image.~Image();
-	ui2.image.~Image();
-	for (int y = 0; y < 3; ++y)
-	{
-		for (int x = 0; x < 6; ++x)
-		{
-			card[y][x].image.~Image();
-		}
-	}
-
-	//‰½ŒÌ‚©‰ð•ú‚³‚ê‚È‚¢
-	//openSound.Destroy();
-	//cursor.image.Destroy();
-	//back.image.Destroy();
-	//nice.image.Destroy();
-	//clear.image.Destroy();
-	//ui.image.Destroy();
-	//ui2.image.Destroy();
-	//for (int y = 0; y < 3; ++y)
-	//{
-	//	for (int x = 0; x < 6; ++x)
-	//	{
-	//		card[y][x].image.Destroy();
-	//	}
-	//}
-
+	
 }

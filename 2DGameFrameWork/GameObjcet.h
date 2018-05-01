@@ -15,5 +15,5 @@ public:
 		draw = { 0,0,0,0 };
 		pos = { 0,0 };
 	};
-	virtual ~GameObject() {};
+	virtual ~GameObject() { image.Destroy(); };
  };
