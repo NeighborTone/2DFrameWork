@@ -14,12 +14,15 @@ private:
 	
 public:
 	explicit SceneManeger() {}
-	virtual ~SceneManeger() { DestroyThis(); }
+	virtual ~SceneManeger() { }
 
 	static void DestroyThis()
 	{
-		if (!instance)
+		if (instance != nullptr)
+		{
 			delete instance;		//ƒV[ƒ“‚Ìƒƒ‚ƒŠ‚ğ‰ğ•ú
+		}
+		
 	}
 
 	static SceneManeger* GetInstance()

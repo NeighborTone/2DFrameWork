@@ -72,6 +72,7 @@ namespace DX9
 	{
 		scene->GetCurrentScene()->Finalize();
 		delete scene->GetCurrentScene();
+		
 		system->GetSystem()->DestroySystem(sound);
 	}
 	
