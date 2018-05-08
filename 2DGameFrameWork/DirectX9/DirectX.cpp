@@ -12,8 +12,9 @@ namespace DX9
 		{
 			in.CreateInput(win.GetWindow());
 			pad.CreatePadInput(win.GetWindow());
+			mouse.CreateMousenput(win.GetWindow());
 			system->GetSystem()->Create();
-		
+			font.Create();
 			//
 
 			return true;
@@ -23,16 +24,9 @@ namespace DX9
 
 	void DirectX::Update()
 	{
-	
-	/*	if (GetKeyState(VK_RETURN) & 0x8000)
-		{
-			sound.Stop();
-		}
-		if (GetKeyState(VK_LSHIFT) & 0x8000)
-		{
-			sound.PlayBGM();
-		}*/
-		
+		mouse.UpDate();
+		mouse.GetMousePos();
+
 	}
 
 	void DirectX::Draw()
@@ -49,9 +43,9 @@ namespace DX9
 				1.0f,
 				0
 			);
-
-			
-
+			//--------------------
+			//マウスの座標表示
+			font.Draw(0xffffffff,0,0,"x%d  y%d",mouse.pos.x,mouse.pos.y);
 			//描画終了
 			direct3D->GetInst()->GetDevice()->EndScene();
 		}

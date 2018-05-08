@@ -17,6 +17,7 @@ namespace DX9
 	public: 
 		Direct3D* direct3D;
 		SoundSystem* system;
+		Font font;
 		 DirectX() {};
 		 DirectX(const DirectX&) = delete;
 		 ~DirectX() {};

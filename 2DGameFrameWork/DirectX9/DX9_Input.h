@@ -83,6 +83,26 @@ namespace DX9
 
 		BYTE GetPovPosition(const int no);          // 十字キーの位置を取得 
 	};
+
+	class DxMouse
+	{
+	private:
+		LPDIRECTINPUTDEVICE8 pDIMouse;	//マウスデバイス
+		DIMOUSESTATE pMouseState;				//マウス状態
+		HWND pwnd;
+	public:
+		DxMouse();
+		~DxMouse();
+		POINT pos;
+		bool CreateMousenput(const HWND& hwnd);
+
+		void UpDate();
+		//押されている
+		bool LPush();
+		bool RPush();
+		POINT GetMousePos();
+	};
 	extern Input in;	//DirectX初期化時に生成する
 	extern PadInput pad;
+	extern DxMouse mouse;
 }

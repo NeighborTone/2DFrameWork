@@ -425,5 +425,113 @@ namespace DX9
 		
 	}
 
-}
 
+	//-------------------
+	DxMouse mouse;
+	//-------------------
+
+	DxMouse::DxMouse() :
+		pDIMouse(nullptr)
+	{
+		pos = {0,0};
+		pMouseState = { 0 };
+	}
+	DxMouse::~DxMouse()
+	{
+		if (pDIMouse)
+		{
+			pDIMouse->Release();
+			pDIMouse = nullptr;
+		}
+		
+	}
+
+	bool DxMouse::CreateMousenput(const HWND & hwnd)
+	{
+		pwnd = hwnd;
+		HRESULT ret;
+		// マウス用にデバイスオブジェクトを作成
+		ret = in.GetpDI()->CreateDevice(GUID_SysMouse, &pDIMouse, NULL);
+		if (FAILED(ret)) 
+		{
+			MessageBox(NULL, "マウスデバイスの作成に失敗しました", "Error", MB_OK);
+			return false;
+		}
+
+		// データフォーマットを設定
+		ret = pDIMouse->SetDataFormat(&c_dfDIMouse);	// マウス用のデータ・フォーマットを設定
+		if (FAILED(ret)) 
+		{
+			MessageBox(NULL, "マウスデータフォーマットの設定に失敗しました", "Error", MB_OK);
+			// データフォーマットに失敗
+			return false;
+		}
+
+		// モードを設定（フォアグラウンド＆非排他モード）
+		ret = pDIMouse->SetCooperativeLevel(hwnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
+		if (FAILED(ret))
+		{
+			MessageBox(NULL, "マウスモードの設定に失敗しました", "Error", MB_OK);
+			// モードの設定に失敗
+			return false;
+		}
+
+		// デバイスの設定
+		DIPROPDWORD diprop;
+		diprop.diph.dwSize = sizeof(diprop);
+		diprop.diph.dwHeaderSize = sizeof(diprop.diph);
+		diprop.diph.dwObj = 0;
+		diprop.diph.dwHow = DIPH_DEVICE;
+		diprop.dwData = DIPROPAXISMODE_REL;	// 相対値モードで設定（絶対値はDIPROPAXISMODE_ABS）
+
+		ret = pDIMouse->SetProperty(DIPROP_AXISMODE, &diprop.diph);
+		if (FAILED(ret))
+		{
+			MessageBox(NULL, "マウスデバイスの設定に失敗しました", "Error", MB_OK);
+			// デバイスの設定に失敗
+			return false;
+		}
+		//入力制御開始
+		pDIMouse->Acquire();
+
+		return true;
+	}
+	void DxMouse::UpDate()
+	{
+		// 読取前の値を保持します
+		DIMOUSESTATE g_zdiMouseState_bak;	// マウス情報(変化検知用)
+		memcpy(&g_zdiMouseState_bak, &pMouseState, sizeof(g_zdiMouseState_bak));
+		HRESULT	hr = pDIMouse->GetDeviceState(sizeof(DIMOUSESTATE), &pMouseState);
+		if (hr == DIERR_INPUTLOST) {
+			pDIMouse->Acquire();
+			hr = pDIMouse->GetDeviceState(sizeof(DIMOUSESTATE), &pMouseState);
+		}
+
+	}
+
+	bool DxMouse::LPush()
+	{
+		if (pMouseState.rgbButtons[0] & 0x80)
+		{
+			return true;
+		}
+		
+		return false;
+	}
+	bool DxMouse::RPush()
+	{
+		if (pMouseState.rgbButtons[1] & 0x80)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	POINT DxMouse::GetMousePos()
+	{
+		GetCursorPos(&mouse.pos);
+		ScreenToClient(pwnd, &mouse.pos);
+		return mouse.pos;
+	}
+
+}
