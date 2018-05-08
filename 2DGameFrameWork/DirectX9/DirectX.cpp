@@ -12,15 +12,10 @@ namespace DX9
 		{
 			in.CreateInput(win.GetWindow());
 			pad.CreatePadInput(win.GetWindow());
-			scene = SceneManeger::GetInstance();
-			//‰¼‚Ì‰¹ˆ—
 			system->GetSystem()->Create();
-			sound.Load("Grass.wav");
-			system->GetSystem()->AddSource(sound);
-			system->SetMasterGain(1.0f);
-			sound.PlayBGM(255,0.5f);
+		
 			//
-			scene->InsertScene(new Title);
+
 			return true;
 		}
 		return false;
@@ -37,7 +32,7 @@ namespace DX9
 		{
 			sound.PlayBGM();
 		}*/
-		scene->GetCurrentScene()->Update();
+		
 	}
 
 	void DirectX::Draw()
@@ -55,7 +50,7 @@ namespace DX9
 				0
 			);
 
-			scene->GetCurrentScene()->Draw();
+			
 
 			//•`‰æI—¹
 			direct3D->GetInst()->GetDevice()->EndScene();
@@ -70,10 +65,8 @@ namespace DX9
 
 	void DirectX::End()
 	{
-		scene->GetCurrentScene()->Finalize();
-		delete scene->GetCurrentScene();
+	
 		
-		system->GetSystem()->DestroySystem(sound);
 	}
 	
 }

@@ -16,9 +16,7 @@ namespace DX9
 		
 	public: 
 		Direct3D* direct3D;
-		SceneManeger* scene;
 		SoundSystem* system;
-		SoundSource sound;
 		 DirectX() {};
 		 DirectX(const DirectX&) = delete;
 		 ~DirectX() {};

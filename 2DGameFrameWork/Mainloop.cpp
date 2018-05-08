@@ -4,7 +4,7 @@
 bool Mainloop::Init(HINSTANCE hInstance, int nCmdShow)
 {
 	//ウィンドウ生成
-	const bool iswin = 	window.Create("NervousBreakDown",hInstance, nCmdShow);
+	const bool iswin = 	window.Create("MyFrame",hInstance, nCmdShow);
 	//DirectX9のデバイス生成
 	const bool isDirectX = directx.Init(window);
 	//ウィンドウ描画
