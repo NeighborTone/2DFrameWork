@@ -29,14 +29,6 @@ namespace DX9
 	void DirectX::Update()
 	{
 	
-	/*	if (GetKeyState(VK_RETURN) & 0x8000)
-		{
-			sound.Stop();
-		}
-		if (GetKeyState(VK_LSHIFT) & 0x8000)
-		{
-			sound.PlayBGM();
-		}*/
 		scene->GetCurrentScene()->Update();
 	}
 

@@ -7,8 +7,6 @@ bool Title::Initialize()
 	logo_N.image.Load("image/Nervous.png");
 	logo_B.image.Load("image/Breakdown.png");
 	button.image.Load("image/z.png");
-	sound.Load("Swing(rev).wav");
-	SoundSystem::GetSystem()->AddSource(sound);
 
 	logo_N.pos = { -270,0 };
 	logo_B.pos = { 500,80 };
@@ -30,10 +28,7 @@ void Title::Update()
 		}
 		
 	}
-	if (key.Down(KeyBoard::Key::KEY_A))
-	{
-		sound.PlaySE();
-	}
+
 	if (key.Down(KeyBoard::Key::KEY_Z) && a >= 200)
 	{
 		

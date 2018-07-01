@@ -282,12 +282,13 @@ void Game::Update()
 	if (open == 18)
 	{
 		clear.pos.y = clear.ease.QuadIn(clear.ease.Time(5), -40, 100, 5);
+		if (key.Down(KeyBoard::Key::KEY_E))
+		{
+			SceneManeger::GetInstance()->ChangeScene(new Title);
+		}
 	}
 
-	if (key.Down(KeyBoard::Key::KEY_E))
-	{
-		SceneManeger::GetInstance()->ChangeScene(new Title);
-	}
+	
 }
 void Game::Draw()
 {
